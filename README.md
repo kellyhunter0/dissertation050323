@@ -22,7 +22,10 @@ To set up the server (back-end):
 cd flask-server
 python -m venv venv
 ```
-
+Activate environment:
+```bash
+& c:/Users/Admin/dissertation-050323/flask-server/venv/Scripts/Activate.ps1
+```
 To run the server (back-end):
 
 ```bash
