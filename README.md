@@ -31,3 +31,5 @@ python server.py
 ```
 
 To develop, edit App.js and save to reload.
+
+Access data from https://livenapierac-my.sharepoint.com/:x:/r/personal/40283127_live_napier_ac_uk/Documents/Software%20Year%204/Honours%20Project/iot_telemetry_data.csv?d=wd1efb96d91db4fd096cda1d1683673e4&csf=1&web=1&e=TM4A74
