@@ -5,7 +5,7 @@ import pandas as pd
 from pandas import Series
 import matplotlib as m
 from matplotlib import pyplot as plt
-import datetime
+import datetime 
 from flaskname import * # gets the flask app name function from py file
 import random
 from sklearn.linear_model import LinearRegression
@@ -14,7 +14,7 @@ from sklearn.linear_model import LinearRegression
 FILE_NAME = "./../front-end/public/datasets/iot_telemetry_data.csv"
 
 lr = LinearRegression()
-
+ 
 # identify the columns in the csv
 columns = ["ts","device","co","humidity","light","lpg","motion","smoke","temp"]
 
@@ -61,38 +61,19 @@ def missingData():
     #print("Min: ", minTemp, " Max: ", maxTemp)
     #randomNum = randint(minTemp, 0)
     i = 0
-    j = 0
-    k = 0
+
     with open(FILE_NAME, 'r') as file:
         csv_reader = csv.reader(file, delimiter = ',')
         for row in csv_reader:
-            if i < (len(dataframe)) & j < (len(dataframe)) & k < (len(dataframe)):
+            if i < (len(dataframe)):
                 dataframe.at[(i), 'carbon-monoxide']  = np.nan
-                dataframe.at[(j), 'lpg']  = np.nan
-                dataframe.at[(k), 'smoke']  = np.nan
+                dataframe.at[(i), 'lpg']  = np.nan
+                dataframe.at[(i), 'smoke']  = np.nan
+                # dataframe.at[(j), 'lpg']  = np.nan
+                # dataframe.at[(k), 'smoke']  = np.nan
                 #dataframe.at[(i), 'carbon-monoxide'] =np.nan
                 i= i + random.randint(0,3)
-                j= j + random.randint(0,3)
-                k= k + random.randint(0,3)
-   
-    print("Dataframe\n", dataframe)
-    dataframe['carbon-monoxide'] = dataframe['carbon-monoxide'].astype(float)
-    dataframe['lpg'] = dataframe['lpg'].astype(float)
-    dataframe['smoke'] = dataframe['smoke'].astype(float)
-    #dataframe['carbon-monoxide'] = dataframe['carbon-monoxide'].astype(float)
-    if (dataframe['carbon-monoxide'] == 0).any():
-        print(dataframe.dtypes)
-        #12/02/23 not working for some reason, doesn't pick up the newly created blank values
-        # 14/04/23 isnull() now works! It doesn't work if the values are empty strings and the data type hasnt been parsed, before calling check that the types are floats and then run the check to see if there are any null values in columns
-        print("nullvalues", dataframe.isnull().sum())      
-        #  reg_predict()
-         # regression prediction model
-    elif (dataframe['lpg'] == 0).any(): 
-        print(dataframe.dtypes)
-        #12/02/23 not working for some reason, doesn't pick up the newly created blank values
-        # 14/04/23 isnull() now works! It doesn't work if the values are empty strings and the data type hasnt been parsed, before calling check that the types are floats and then run the check to see if there are any null values in columns
-        print("nullvalues", dataframe.isnull().sum())                                                                                    
-    dataframe.to_csv('./../front-end/public/datasets/missingvalues.csv', index=False)   
+
     return dataframe
 
 # aggregate - everything within 30 seconds and get the mean
@@ -112,21 +93,42 @@ def missingData():
             # 5. Create x_test from test data
             # 6. Apply the model on x_test of test data to make predictions
             # 7. Replace missing values with predicted values
-
+missingData()
 # add k-nearest neighbours to show comparison between two methods
 def reg_predict():
+    print("Dataframe\n", dataframe)
+    dataframe['carbon-monoxide'] = dataframe['carbon-monoxide'].astype(float)
+    dataframe['lpg'] = dataframe['lpg'].astype(float)
+    dataframe['smoke'] = dataframe['smoke'].astype(float)
+    #dataframe['carbon-monoxide'] = dataframe['carbon-monoxide'].astype(float)
+    if (dataframe['carbon-monoxide'] == 0).any():
+        print(dataframe.dtypes)
+        #12/02/23 not working for some reason, doesn't pick up the newly created blank values
+        # 14/04/23 isnull() now works! It doesn't work if the values are empty strings and the data type hasnt been parsed, before calling check that the types are floats and then run the check to see if there are any null values in columns
+        print("nullvalues", dataframe.isnull().sum())      
+        #  reg_predict()
+         # regression prediction model
+    elif (dataframe['lpg'] == 0).any(): 
+        print(dataframe.dtypes)
+        #12/02/23 not working for some reason, doesn't pick up the newly created blank values
+        # 14/04/23 isnull() now works! It doesn't work if the values are empty strings and the data type hasnt been parsed, before calling check that the types are floats and then run the check to see if there are any null values in columns
+        print("nullvalues", dataframe.isnull().sum())                                                                                    
+    dataframe.to_csv('./../front-end/public/datasets/missingvalues.csv', index=False)  
     # This wont parse datetime values, so i need to find a way that only targets the numerical data in the whole dataset, otherwise this will throw some really funky errors 
     # this is kind of fixed - all i had to do is drop the date value, and now i need to convert categorical values into numerical codes
     test_data = dataframe[dataframe['lpg'].isnull()]
     print("test data", test_data)
     rm = dataframe.dropna(inplace=True)    
+    rm
     print("removed values",rm)
-    x_train = dataframe.drop('temperature', axis=1)
+    x_train = dataframe['carbon-monoxide']
+    z_train = dataframe['smoke']
     drop = dataframe.drop('date', axis=1)
     print("df after date removal", drop)
-    ytrain = dataframe['temperature']
-    print("----X train\n", drop)
+    ytrain = dataframe['lpg']
+    print("----X train\n", x_train)
     print("----Y train\n", ytrain)
+    print("----z train\n", z_train)
     print(lr.fit(drop, ytrain))
     # finish predicting the temperature values
     remove_missing_values()
@@ -136,7 +138,9 @@ def reg_predict():
     # Idea 3: Could take the mean of the column in question and fill in the blank values with this, however this isn't the best way. It wouldn't be truly representative of what the value could be, and this could create some data quality issues in the dataset. it may even add bias to the dataset, so you should be careful if you do this approach. 
 
 def remove_missing_values():
+    
     dfresult = dataframe.dropna()
+    dfresult.to_csv('./../front-end/public/datasets/missing.csv', index=False)  
     print("Removed missing values: \n\n", dfresult)
 
     return dataframe

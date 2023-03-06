@@ -1,8 +1,9 @@
 import './App.css';
-import {MissingDataChart, OriginalDataChart} from "./MissingChartGraph";
+import {OriginalDataChart} from "./OriginalChartGraph";
+import {MissingDataChart} from "./MissingChartGraph";
 import {ResponsiveAppBar} from "./ResponsiveAppBar";
 import React from 'react'; 
-import ScatterPlotIcon from '@mui/icons-material/ScatterPlot';
+
 
 
 export default function App() { 
@@ -24,7 +25,7 @@ export default function App() {
     <svg data-testid="ScatterplotIcon"></svg>
       <header className="App-header">
         <p>
-          DataViz
+          
           
         </p>
         <OriginalDataChart></OriginalDataChart>

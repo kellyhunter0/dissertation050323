@@ -19,6 +19,7 @@ import { CCloseButton } from '@coreui/react';
 import { CDropdownDivider } from '@coreui/react';
 import { CForm } from '@coreui/react';
 import { CFormInput } from '@coreui/react';
+import ScatterPlotIcon from '@mui/icons-material/ScatterPlot';
 
 
 /*
@@ -33,7 +34,8 @@ export const ResponsiveAppBar = () => {
     const [visible, setVisible] = useState(false)
     return (
       <CNavbar colorScheme="dark" className="bg-dark" expand="xxl">
-        <CNavbarBrand className='brand'>DataViz</CNavbarBrand>
+        <CNavbarBrand className='brand'><ScatterPlotIcon style={{fontSize: "60px" }}/>DataViz</CNavbarBrand>
+       
         <CContainer fluid>
           <CNavbarToggler
             aria-controls="offcanvasNavbar2"

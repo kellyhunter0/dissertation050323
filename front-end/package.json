@@ -1,5 +1,5 @@
 {
-  "name": "@observablehq/plot-create-react-app-example",
+  "name": "dissertation",
   "version": "0.1.0",
   "license": "ISC",
   "proxy": "http://127.0.0.1:5000",
