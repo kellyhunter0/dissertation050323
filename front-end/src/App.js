@@ -3,6 +3,7 @@ import {OriginalDataChart} from "./OriginalChartGraph";
 import {MissingDataChart} from "./MissingChartGraph";
 import {ResponsiveAppBar} from "./ResponsiveAppBar";
 import React from 'react'; 
+import { OutlierDataChart } from './OutlierChartGraph';
 
 
 
@@ -29,10 +30,10 @@ export default function App() {
           
         </p>
         <OriginalDataChart></OriginalDataChart>
+ 
         <MissingDataChart></MissingDataChart>
+        <OutlierDataChart></OutlierDataChart>
       </header>
-      <div className="container">
-      </div>
     </div>
     </>
 

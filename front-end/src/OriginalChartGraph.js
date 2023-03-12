@@ -12,7 +12,7 @@ export function OriginalDataChart(headerRef){
     
   
     useEffect(() => {
-      d3.csv("/datasets/iot_telemetry_data.csv", d3.autoType).then(setBigData);
+      d3.csv("/datasets/half-removed.csv", d3.autoType).then(setBigData);
     }, []);
   
     
@@ -35,8 +35,8 @@ export function OriginalDataChart(headerRef){
         },
         marks: [
           Plot.ruleY([0]),
-          Plot.dot(bigData, {x: "co", y: "lpg", fill:"smoke"}),
-          Plot.linearRegressionY(bigData, {x: "co", y: "lpg", stroke: "black", ci: 0.95})
+          Plot.dot(bigData, {x: "carbon-monoxide", y: "lpg", fill:"smoke"}),
+          Plot.linearRegressionY(bigData, {x: "carbon-monoxide", y: "lpg", stroke: "steelblue", ci: 0.95})
         ],
         marginBottom: 50,
       });
@@ -49,6 +49,7 @@ export function OriginalDataChart(headerRef){
         <p>
           No Missing Values <br/> File Location:<code>./front-end/src/OriginalChartGraph.js</code> and save to reload. 
         </p>
+        <p>The dataset is reduced by half initally and plotted to identify a relationship. </p>
         </header>
       )
    

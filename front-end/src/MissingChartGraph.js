@@ -2,6 +2,7 @@ import * as Plot from "@observablehq/plot";
 
 import * as d3 from "d3";
 import React, {useEffect, useRef, useState} from 'react';
+import { OriginalDataChart } from "./OriginalChartGraph";
 
 
 
@@ -10,7 +11,7 @@ export const MissingDataChart = () => {
     const [missingData, setMissingData] = useState();
 
     useEffect(() => {
-      d3.csv("/datasets/missing.csv", d3.autoType).then(setMissingData);
+      d3.csv("/datasets/missingvalue.csv", d3.autoType).then(setMissingData);
     }, []);
   
     // Missing Data chart
@@ -39,12 +40,12 @@ export const MissingDataChart = () => {
       ref.current.append(chart2);
       return () => chart2.remove();
     }, [missingData])
-    
     return (
         <header className="App-header" ref={ref}>
         <p>
-          Missing Values <br/> File Location:<code>./front-end/src/MissingChartGraph.js</code> and save to reload. 
+          Removal of Created Missing Values <br/> File Location:<code>./front-end/src/MissingChartGraph.js</code> and save to reload. 
         </p>
+        <p>Values are randomly assigned as NaN and then removed from the dataset to compare with the first chart.</p>
         <div ref={ref}></div>
       </header>
       )
