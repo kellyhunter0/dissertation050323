@@ -4,6 +4,8 @@ import {MissingDataChart} from "./MissingChartGraph";
 import {ResponsiveAppBar} from "./ResponsiveAppBar";
 import React from 'react'; 
 import { OutlierDataChart } from './OutlierChartGraph';
+import { LinRegChartMissing } from './LinRegChart';
+import {AllPredictLinReg} from './AllPredictedLpg';
 
 
 
@@ -33,6 +35,8 @@ export default function App() {
  
         <MissingDataChart></MissingDataChart>
         <OutlierDataChart></OutlierDataChart>
+        <LinRegChartMissing></LinRegChartMissing>
+        <AllPredictLinReg></AllPredictLinReg>
       </header>
     </div>
     </>

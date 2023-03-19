@@ -2,7 +2,6 @@ import * as Plot from "@observablehq/plot";
 
 import * as d3 from "d3";
 import React, {useEffect, useRef, useState} from 'react';
-import { OriginalDataChart } from "./OriginalChartGraph";
 
 
 
@@ -11,7 +10,7 @@ export const MissingDataChart = () => {
     const [missingData, setMissingData] = useState();
 
     useEffect(() => {
-      d3.csv("/datasets/missingvalue.csv", d3.autoType).then(setMissingData);
+      d3.csv("/datasets/missingvalues.csv", d3.autoType).then(setMissingData);
     }, []);
   
     // Missing Data chart

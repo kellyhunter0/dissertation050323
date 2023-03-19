@@ -9,6 +9,8 @@ import datetime
 from flaskname import * # gets the flask app name function from py file
 import random
 from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split 
+from sklearn import metrics
 
 # Specify the file name
 FILE_NAME = "./../front-end/public/datasets/iot_telemetry_data.csv"
@@ -73,18 +75,17 @@ def missingData():
     with open(FILE_NAME, 'r') as file:
         csv_reader = csv.reader(file, delimiter = ',')
         for row in csv_reader:
-            if i < (len(dataframe)):
-                dataframe.at[(i), 'carbon-monoxide']  = np.nan
+            if i < (len(dataframe)-1):
                 dataframe.at[(i), 'lpg']  = np.nan
-                dataframe.at[(i), 'smoke']  = np.nan
                 # dataframe.at[(j), 'lpg']  = np.nan
                 # dataframe.at[(k), 'smoke']  = np.nan
                 #dataframe.at[(i), 'carbon-monoxide'] =np.nan
-                i= i + random.randint(0,3)
+                i= i + random.randint(0,4)
     print("\n___________________________________________")
     print("\n_____________Missing Values________________")
     print("Assigned missing values and reduced the dataset by half. The date has also been converted for redability and for the purposes of aggregating the data later on. \n", dataframe)
-    return dataframe
+    dataframe.to_csv("./../front-end/public/datasets/missingvalues.csv")
+    return dataframe 
 
 # aggregate - everything within 30 seconds and get the mean
 # filtered- by date
@@ -107,12 +108,15 @@ def missingData():
 def reg_predict():
     print("\n___________________________________________")
     print("\n_________Regression Predictions____________")
-
-
-    rm = dataframe.dropna(inplace=True)
-    rm
+    temp = pd.read_csv('./../front-end/public/datasets/half-removed.csv', usecols=completeColumns)
+    dataframe['lpg'].interpolate(method='linear', inplace=True, limit_direction="both") 
+    dataframe.drop(['date'], axis=1)
+    dataframe.to_csv('./../front-end/public/datasets/missing-filled-interpolate.csv')
     drop = dataframe.drop(['date'], axis=1)
-    print("Dropped date\n",drop)
+    print("Predicted values (interpolate, method='linear'): \n", drop)
+    print('Mean Absolute Error:', metrics.mean_absolute_error(temp['lpg'], drop['lpg']))  
+    print('Mean Squared Error:', metrics.mean_squared_error(temp['lpg'], drop['lpg']))  
+    print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(temp['lpg'], drop['lpg'])))
     dataframe['carbon-monoxide'] = dataframe['carbon-monoxide'].astype(float)
     dataframe['lpg'] = dataframe['lpg'].astype(float)
     dataframe['smoke'] = dataframe['smoke'].astype(float)
@@ -120,18 +124,41 @@ def reg_predict():
     dataframe['humidity'] = dataframe['humidity'].astype(float)
     # This wont parse datetime values, so i need to find a way that only targets the numerical data in the whole dataset, otherwise this will throw some really funky errors 
     # this is kind of fixed - all i had to do is drop the date value, and now i need to convert categorical values into numerical codes
-    x_train = dataframe['carbon-monoxide']
-    z_train = dataframe['smoke']
-    ytrain = dataframe['lpg']
-    # finish predicting the values
-    dataframe.to_csv('./../front-end/public/datasets/missingvalue.csv', index=False) 
-    dfresult = dataframe.dropna()
+    
+    x = dataframe['carbon-monoxide'].values.reshape(-1,1)
+    y = dataframe['lpg'].values.reshape(-1,1)
+    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=202591, random_state=0)
+    # finish predicting the values 
+    # dataframe.to_csv('./../front-end/public/datasets/missingvalue.csv', index=False)
+    lr.fit(X_train, y_train)
+    y_pred = lr.predict(X_test)
+    ydf = pd.DataFrame({'lpg':y_pred.flatten()})
+    ydfSeries = pd.Series(ydf['lpg'], name='lpg')
+    dfresult = dataframe.fillna(ydfSeries)
+    print("dfresult:\n", dfresult)
     dfresult.to_csv('./../front-end/public/datasets/missingremoved.csv', index=False)  
+    dataf = pd.read_csv('./../front-end/public/datasets/half-removed.csv', nrows=202592)  
     print("\n_________________________________________")
     print("\n_________Removed Missing Values__________")
-    print("Removed missing values (reg): \n\n", dfresult)
-    regr = lr.fit(drop, ytrain)
-    print("Linear Regression: \n", regr)
+    
+    print("Linear Regression intercept: \n", lr.intercept_ )
+    print("Linear Regression coef: \n", lr.coef_ )
+    
+    missingvalues = pd.read_csv('./../front-end/public/datasets/missingvalues.csv', nrows=202592)
+    missingvalues['lpg'].fillna(ydfSeries, inplace=True)
+    missingvalues.info()
+    missingvalues.describe()
+    print("Fill with linear regression values:\n", missingvalues['lpg'])
+    print(missingvalues.isna())
+
+    df = pd.DataFrame({'Actual':dataf['lpg'], 'Predicted': missingvalues['lpg']})
+    predictAllLpg = pd.DataFrame({'lpg':missingvalues['lpg'], 'carbon-monoxide':dataf['carbon-monoxide'], 'smoke':dataf['smoke'], 'humidity':dataf['humidity'], 'temperature':dataf['temperature'] })
+    predictAllLpg.to_csv('./../front-end/public/datasets/all-predicted-lr.csv', index=False)
+    print(df)
+    #df.to_csv('./../front-end/public/datasets/all-predicted-lr.csv', index=False)
+    print('Mean Absolute Error:', metrics.mean_absolute_error(dataf['lpg'], missingvalues['lpg']))  
+    print('Mean Squared Error:', metrics.mean_squared_error(dataf['lpg'], missingvalues['lpg']))  
+    print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(dataf['lpg'], missingvalues['lpg'])))
     return dataframe
 
 
