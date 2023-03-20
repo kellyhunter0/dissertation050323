@@ -16,7 +16,7 @@ from flaskname import * # gets the flask app name function from py file
 from outlierRemoval import removeOutliers
 from gaussianDistribution import gaussianDistribution
 
-FILE_NAME = "./../front-end/public/datasets/iot_telemetry_data.csv"
+FILE_NAME = "./../front-end/public/datasets/original/iot_telemetry_data.csv"
  
 # identify the columns in the csv
 columns = ["ts","device","co","humidity","light","lpg","motion","smoke","temp"]

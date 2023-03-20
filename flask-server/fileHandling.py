@@ -13,8 +13,8 @@ from sklearn.model_selection import train_test_split
 from sklearn import metrics
 
 # Specify the file name
-FILE_NAME = "./../front-end/public/datasets/iot_telemetry_data.csv"
-FILE_COMPLETE = "./../front-end/public/datasets/half-removed.csv"
+FILE_NAME = "./../front-end/public/datasets/original/iot_telemetry_data.csv"
+FILE_COMPLETE = "./../front-end/public/datasets/original/half-removed.csv"
 
 lr = LinearRegression()
  
@@ -53,7 +53,7 @@ def csvColumnRename():
     print("\n_________________________________________")
     print("\n__________Csv Column Rename______________")
     print(dataframe)
-    dataframe.to_csv("./../front-end/public/datasets/half-removed.csv", index=False)
+    dataframe.to_csv("./../front-end/public/datasets/original/half-removed.csv", index=False)
     missingData()
     return dataframe
     #csvToJson()
@@ -84,7 +84,14 @@ def missingData():
     print("\n___________________________________________")
     print("\n_____________Missing Values________________")
     print("Assigned missing values and reduced the dataset by half. The date has also been converted for redability and for the purposes of aggregating the data later on. \n", dataframe)
-    dataframe.to_csv("./../front-end/public/datasets/missingvalues.csv")
+    dataframe.to_csv("./../front-end/public/datasets/missing/missingvalues.csv")
+    print("Missing Values:\n", dataframe)
+    dfresult = dataframe.dropna()
+    print("\n_________________________________________")
+    print("\n_________Removed Missing Values__________")
+    print("Missing Values Removed:\n", dfresult)
+    
+    dfresult.to_csv('./../front-end/public/datasets/missing/missingremoved.csv', index=False)  
     return dataframe 
 
 # aggregate - everything within 30 seconds and get the mean
@@ -105,60 +112,66 @@ def missingData():
             # 6. Apply the model on x_test of test data to make predictions
             # 7. Replace missing values with predicted values
 # add k-nearest neighbours to show comparison between two methods
-def reg_predict():
-    print("\n___________________________________________")
-    print("\n_________Regression Predictions____________")
-    temp = pd.read_csv('./../front-end/public/datasets/half-removed.csv', usecols=completeColumns)
+def mean_square_error(x, y):
+    print('Mean Absolute Error:', metrics.mean_absolute_error(x, y))  
+    print('Mean Squared Error:', metrics.mean_squared_error(x, y))  
+    print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(x, y)))
+
+def interpolated_values():
+    
+    print("\n_________Interpolated Predictions____________")
+    temp = pd.read_csv('./../front-end/public/datasets/original/half-removed.csv', usecols=completeColumns)
     dataframe['lpg'].interpolate(method='linear', inplace=True, limit_direction="both") 
     dataframe.drop(['date'], axis=1)
-    dataframe.to_csv('./../front-end/public/datasets/missing-filled-interpolate.csv')
+    dataframe.to_csv('./../front-end/public/datasets/interpolation/missing-filled-interpolate.csv')
     drop = dataframe.drop(['date'], axis=1)
     print("Predicted values (interpolate, method='linear'): \n", drop)
-    print('Mean Absolute Error:', metrics.mean_absolute_error(temp['lpg'], drop['lpg']))  
-    print('Mean Squared Error:', metrics.mean_squared_error(temp['lpg'], drop['lpg']))  
-    print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(temp['lpg'], drop['lpg'])))
-    dataframe['carbon-monoxide'] = dataframe['carbon-monoxide'].astype(float)
-    dataframe['lpg'] = dataframe['lpg'].astype(float)
-    dataframe['smoke'] = dataframe['smoke'].astype(float)
-    dataframe['temperature'] = dataframe['temperature'].astype(float)
-    dataframe['humidity'] = dataframe['humidity'].astype(float)
+    mean_square_error(temp['lpg'], drop['lpg'])
+    x = dataframe['carbon-monoxide'].values.reshape(-1,1)
+    y = drop['lpg'].values.reshape(-1,1)
     # This wont parse datetime values, so i need to find a way that only targets the numerical data in the whole dataset, otherwise this will throw some really funky errors 
-    # this is kind of fixed - all i had to do is drop the date value, and now i need to convert categorical values into numerical codes
-    
+    # this is kind of fixed - all i had to do is drop the date value, and now i need to convert categorical values into numerical codes 
+    # finish predicting the values 
+    print("\n_____________________________________________")
+    print("\n___LinReg Calculations: Interpolated Values__")
+    CallLinearReg(x,y) # this calls the function to get the intercept and coefficient before the data has been altered
+
+def lr_values():
+    print("\n_________Linear Regression Predictions____________")
+    dataf = pd.read_csv('./../front-end/public/datasets/original/half-removed.csv', nrows=202592)  
     x = dataframe['carbon-monoxide'].values.reshape(-1,1)
     y = dataframe['lpg'].values.reshape(-1,1)
     X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=202591, random_state=0)
-    # finish predicting the values 
-    # dataframe.to_csv('./../front-end/public/datasets/missingvalue.csv', index=False)
-    lr.fit(X_train, y_train)
+    lr.fit(x, y)
     y_pred = lr.predict(X_test)
     ydf = pd.DataFrame({'lpg':y_pred.flatten()})
     ydfSeries = pd.Series(ydf['lpg'], name='lpg')
-    dfresult = dataframe.fillna(ydfSeries)
-    print("dfresult:\n", dfresult)
-    dfresult.to_csv('./../front-end/public/datasets/missingremoved.csv', index=False)  
-    dataf = pd.read_csv('./../front-end/public/datasets/half-removed.csv', nrows=202592)  
-    print("\n_________________________________________")
-    print("\n_________Removed Missing Values__________")
-    
-    print("Linear Regression intercept: \n", lr.intercept_ )
-    print("Linear Regression coef: \n", lr.coef_ )
-    
-    missingvalues = pd.read_csv('./../front-end/public/datasets/missingvalues.csv', nrows=202592)
+    missingvalues = pd.read_csv('./../front-end/public/datasets/missing/missingvalues.csv', nrows=202592)
     missingvalues['lpg'].fillna(ydfSeries, inplace=True)
-    missingvalues.info()
-    missingvalues.describe()
     print("Fill with linear regression values:\n", missingvalues['lpg'])
-    print(missingvalues.isna())
-
     df = pd.DataFrame({'Actual':dataf['lpg'], 'Predicted': missingvalues['lpg']})
+    mean_square_error(dataf['lpg'], missingvalues[['lpg']])
     predictAllLpg = pd.DataFrame({'lpg':missingvalues['lpg'], 'carbon-monoxide':dataf['carbon-monoxide'], 'smoke':dataf['smoke'], 'humidity':dataf['humidity'], 'temperature':dataf['temperature'] })
     predictAllLpg.to_csv('./../front-end/public/datasets/all-predicted-lr.csv', index=False)
     print(df)
+    mean_square_error(dataf['lpg'], missingvalues['lpg'])
+    print("\n_____________________________________________")
+    print("\n___LinReg Calculations: LR Values__")
+    x2 = dataf['carbon-monoxide'].values.reshape(-1,1)
+    y2 = missingvalues['lpg'].values.reshape(-1,1)
+    CallLinearReg(x2, y2) # this calls the function to get the intercept and coefficient before the data has been altered
+def reg_predict():
+
+    print("\n___________________________________________________________")
+    print("\n_________Regression & Interpolation Predictions____________")
+    x1 = complete['carbon-monoxide'].values.reshape(-1,1)
+    y1 = complete['lpg'].values.reshape(-1,1)
+    print("\n      This is before any alterations      ")
+    CallLinearReg(x1, y1) # this calls the function to get the intercept and coefficient before the data has been altered
+    interpolated_values()
+    lr_values()
+ 
     #df.to_csv('./../front-end/public/datasets/all-predicted-lr.csv', index=False)
-    print('Mean Absolute Error:', metrics.mean_absolute_error(dataf['lpg'], missingvalues['lpg']))  
-    print('Mean Squared Error:', metrics.mean_squared_error(dataf['lpg'], missingvalues['lpg']))  
-    print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(dataf['lpg'], missingvalues['lpg'])))
     return dataframe
 
 
@@ -166,8 +179,12 @@ def reg_predict():
     # Idea 3: Could take the mean of the column in question and fill in the blank values with this, however this isn't the best way. It wouldn't be truly representative of what the value could be, and this could create some data quality issues in the dataset. it may even add bias to the dataset, so you should be careful if you do this approach. 
 
  
-def CallLinearReg():
-     numeric_columns = ['carbon-monoxide', 'temperature', 'lpg', 'smoke', 'humidity']
+def CallLinearReg(x, y):
+    # x = complete['carbon-monoxide'].values.reshape(-1,1)
+    # y = complete['lpg'].values.reshape(-1,1)
+    lr.fit(x, y)
+    print("Linear Regression intercept: \n", lr.intercept_ )
+    print("Linear Regression coef: \n", lr.coef_ )
     
 
 ## Create API Routes for Data so we can send this to the front-end

@@ -8,7 +8,7 @@ import re
 # I also need to adjust the mean in the guassian distribution function to the true value, this works for now but it needs changed
 
 # File handling
-FILE_NAME = "./../front-end/public/datasets/half-removed.csv"
+FILE_NAME = "./../front-end/public/datasets/original/half-removed.csv"
 lpgcols = ['lpg']
 allcols = ['carbon-monoxide','humidity','smoke','lpg','temperature']
 concatCols = ['carbon-monoxide','humidity','smoke','temperature']
@@ -28,10 +28,10 @@ temp = pd.Series(fulldata40lpgframe['temperature'], name='temperature')
 
 def guassian_y_value():
     # lpg predicted value reads here! only 2001 rows so far
-    data40lpg = pd.read_csv("./../front-end/public/datasets/lpg-gd-values.csv", usecols=lpgcols, nrows=80015) # 20259 is 10%, 80015 is roughly 40%
-    data40 = pd.read_csv("./../front-end/public/datasets/half-removed.csv", usecols=concatCols, nrows=80015) # nearly there, needs work
-    data10lpg = pd.read_csv("./../front-end/public/datasets/lpg-gd-values.csv", usecols=lpgcols, nrows=20259) # 20259 is 10%, 80015 is roughly 40%
-    data10 = pd.read_csv("./../front-end/public/datasets/half-removed.csv", usecols=concatCols, nrows=20259) # nearly there, needs work
+    data40lpg = pd.read_csv("./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv", usecols=lpgcols, nrows=80015) # 20259 is 10%, 80015 is roughly 40%
+    data40 = pd.read_csv("./../front-end/public/datasets/original/half-removed.csv", usecols=concatCols, nrows=80015) # nearly there, needs work
+    data10lpg = pd.read_csv("./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv", usecols=lpgcols, nrows=20259) # 20259 is 10%, 80015 is roughly 40%
+    data10 = pd.read_csv("./../front-end/public/datasets/original/half-removed.csv", usecols=concatCols, nrows=20259) # nearly there, needs work
     print(data40)
     print(data40lpg)
     # write new lpg value to csv with the columns in half-removed.csv
@@ -43,7 +43,7 @@ def guassian_y_value():
     frame10 = pd.DataFrame(testframe2)
     print("40 percent of values -  dataframe", frame)
     print("10 percent of values -  dataframe", frame10)    
-    df = pd.read_csv('./../front-end/public/datasets/half-removed.csv', usecols=allcols)
+    df = pd.read_csv('./../front-end/public/datasets/original/half-removed.csv', usecols=allcols)
     # 'carbon-monoxide','humidity','smoke','lpg','temperature'
     rows = df.loc[:, 'carbon-monoxide':'temperature'] # start-col : end-col
     csvTail40 = rows.tail(122577) 
@@ -52,10 +52,10 @@ def guassian_y_value():
     csvTail10 = rows.tail(182333) 
     df2 = pd.concat([frame,csvTail40.loc[:]]).reset_index(drop=True)
     df3 = pd.concat([frame10,csvTail10.loc[:]]).reset_index(drop=True)
-    print("40% of values changed with Normal Distribution",df2)
-    print("10% of values changed with Normal Distribution",df3)
-    df2.to_csv("./../front-end/public/datasets/guassiandistrib-40.csv", index=False)
-    df3.to_csv("./../front-end/public/datasets/guassiandistrib-10.csv", index=False)
+    print("40% of values changed with Normal Distribution\n",df2)
+    print("10% of values changed with Normal Distribution\n",df3)
+    df2.to_csv("./../front-end/public/datasets/normal-distribution/guassiandistrib-40.csv", index=False)
+    df3.to_csv("./../front-end/public/datasets/normal-distribution/guassiandistrib-10.csv", index=False)
     
 
 #### GUASSIAN DISTRIBUTION #####    
@@ -87,7 +87,7 @@ def gaussianDistribution():
     rand_data5 = {k:normal(loc=lpgMean, scale=lpgSD, size=(1000,1)) for k,v in lpgPredict.items()} 
     print("rand_data type", type(rand_data))
     writeAll(rand_data, rand_data2, rand_data3, rand_data4, rand_data5)
-    print("Removing punctuation from the file... Please wait...", "./../front-end/public/datasets/lpg-gd-values.csv")#
+    print("Removing punctuation from the file... Please wait...", "./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv")#
     cleanCsv() # Removes [] and '' from csv rows, and checks for any other punctuation
     guassian_y_value() # prints the distribution of the y value (lpg)
 
@@ -102,7 +102,7 @@ def writeAll(rand_data, rand_data2, rand_data3, rand_data4, rand_data5):
 def write_lpg_values(rand_data):
     
     # Write the newly generated random data to the csvfile (this will eventually be cleaned with the cleanCsv function below)
-    with open('./../front-end/public/datasets/lpg-gd-values.csv', 'w') as f:  # You will need 'wb' mode in Python 2.x, 
+    with open('./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv', 'w') as f:  # You will need 'wb' mode in Python 2.x, 
                                            # but we don't need to worry as this is a Conda 3.9.13 env
         w = csv.DictWriter(f, rand_data.keys())
         w.writeheader()
@@ -127,7 +127,7 @@ def write_lpg_values(rand_data):
     #       Do they know what to look for?
 
 def write_append_lpg_values(rand_data):
-    with open('./../front-end/public/datasets/lpg-gd-values.csv', 'a') as f:  # You will need 'wb' mode in Python 2.x
+    with open('./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv', 'a') as f:  # You will need 'wb' mode in Python 2.x
         w = csv.DictWriter(f, rand_data.keys())
         for i in range(20): # this allows us to generate enough random data to match 10% of our total data(202592 rows)
             w.writerow(rand_data)
@@ -167,17 +167,17 @@ def seriesToFrame():
 # 12/03/23 - this cleans the csv of any spaces or lines with emtpy information
 def cleanCsv():
     dt = pd.read_csv(
-    "./../front-end/public/datasets/lpg-gd-values.csv")
+    "./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv")
     if not dt.empty:
 
-        with open("./../front-end/public/datasets/lpg-gd-values.csv",'r',encoding="utf-8") as f:
+        with open("./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv",'r',encoding="utf-8") as f:
             data = f.read()
-        with open("./../front-end/public/datasets/lpg-gd-values.csv","w+",encoding="utf-8") as f:
+        with open("./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv","w+",encoding="utf-8") as f:
             f.write(remove_punc(data))
         
             
         result = ""
-        with open("./../front-end/public/datasets/lpg-gd-values.csv", "r+") as file:
+        with open("./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv", "r+") as file:
             for line in file:
                 if not line.isspace():
                     result += line

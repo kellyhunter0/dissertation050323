@@ -11,7 +11,7 @@ import random
 from sklearn.linear_model import LinearRegression
 
 # Specify the file name
-FILE_COMPLETE = "./../front-end/public/datasets/half-removed.csv"
+FILE_COMPLETE = "./../front-end/public/datasets/original/half-removed.csv"
  #carbon-monoxide,humidity,lpg,smoke,temperature
 completeColumns = ['carbon-monoxide', 'humidity', 'lpg', 'smoke', 'temperature']
 # use the columns with the specified file name
@@ -23,6 +23,8 @@ dataframe = pd.read_csv(FILE_COMPLETE, usecols=completeColumns)
 # source: https://www.askpython.com/python/examples/detection-removal-outliers-in-python
 
 def removeOutliers():
+    print("Dataset before outlier removal:\n\n", dataframe)
+    dataframe.to_csv('./../front-end/public/datasets/outliers/pre-outlier-removal.csv', index=False)  
     for x in ['temperature']:
         q75,q25 = np.percentile(dataframe.loc[:,x],[75,25])
         intr_qr = q75-q25
@@ -71,12 +73,11 @@ def removeOutliers():
         dataframe.loc[dataframe[b] < min,b] = np.nan
         dataframe.loc[dataframe[b] > max,b] = np.nan
     #dataframe.to_csv("./../front-end/public/datasets/outlierremoval.csv", index=True)
-    print("Dataset before outlier removal:\n\n", dataframe)
-    dataframe.to_csv('./../front-end/public/datasets/pre-outlier-removal.csv', index=False)  
+
     print("Outliers")
     print(dataframe.isnull().sum())
     dfresult = dataframe.dropna()
-    dfresult.to_csv('./../front-end/public/datasets/outlierremoval.csv', index=False)  
+    dfresult.to_csv('./../front-end/public/datasets/outliers/outlierremoval.csv', index=False)  
     print("Dataset after outlier removal: \n\n", dfresult)
     return dataframe
 
