@@ -81,20 +81,20 @@ export function GuassianDistribChart(headerRef){
     return (
 
       <>
-        <header className="App-header" ref={refgd}>
+        <div className="col-lg-6" ref={refgd}>
         <p>
           Guassian Distribution chart (10% of values) <br/> File Location:<code>./front-end/src/OutlierChartGraph.js</code> and save to reload. 
         </p>
         <p>The lpg values have been removed from a sample of 10% of the data and replaced with ones that will show a guassian distribution</p>
 
-        </header>
-        <header className="App-header" ref={refgd40}>
+        </div>
+        <div className="col-lg-6" ref={refgd40}>
         <p>
           Guassian Distribution chart (40% of values) <br/> File Location:<code>./front-end/src/OutlierChartGraph.js</code> and save to reload. 
         </p>
         <p>The lpg values have been removed from a sample of 40% of the data and replaced with ones that will show a guassian distribution</p>
 
-        </header>
+        </div>
       </>
 
 

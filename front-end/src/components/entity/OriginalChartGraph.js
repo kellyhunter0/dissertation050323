@@ -45,12 +45,15 @@ export function OriginalDataChart(headerRef){
       return () => chart.remove();
     }, [bigData]);
     return (
-        <header className="App-header" ref={headerRef}>
+    
+        <div className="col" ref={headerRef}>
         <p>
           No Missing Values <br/> File Location:<code>./front-end/src/OriginalChartGraph.js</code> and save to reload. 
         </p>
         <p>The dataset is reduced by half initally and plotted to identify a relationship. </p>
-        </header>
+        </div>
+
+    
       )
    
 }

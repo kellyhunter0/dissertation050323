@@ -23,6 +23,7 @@ import ScatterPlotIcon from '@mui/icons-material/ScatterPlot';
 
 
 
+
 /*
 Author: Kelly Hunterr
 Source: https://react-bootstrap.github.io/components/offcanvas/
@@ -54,7 +55,7 @@ export const ResponsiveAppBar = () => {
     //   </CNavbar>
     // )
 return (
-  <CNavbar colorScheme="dark" className="bg-dark" expand="xxl">
+  <CNavbar colorScheme="dark" className="bg-dark" expand="xxl" style={{height:"100px"}}>
     <CNavbarBrand className='brand'>
 
        <ScatterPlotIcon className="react-logo" style={{fontSize: "60px" }}></ScatterPlotIcon>
@@ -67,7 +68,7 @@ return (
              />
         </CNavbarBrand>
     <CContainer fluid>
-      <COffcanvas id="offcanvasNavbar2" style={{color:"white"}} placement="end" scroll={true} portal={false} visible={visible} onHide={() => setVisible(false)}>
+      <COffcanvas id="offcanvasNavbar2" style={{color:"white", backgroundColor:"#303030"}} placement="end" scroll={true} portal={false} visible={visible} onHide={() => setVisible(false)}>
         <COffcanvasHeader>
           <COffcanvasTitle>Offcanvas</COffcanvasTitle>
           <CCloseButton className="text-reset" onClick={() => setVisible(false)} />
@@ -75,34 +76,34 @@ return (
         <COffcanvasBody>
           <CNavbarNav>
             <CNavItem>
-              <CNavLink href="#" active>
+              <CNavLink href="/Home" active>
                 Home
               </CNavLink>
             </CNavItem>
             <CNavItem>
-              <CNavLink href="#">Link</CNavLink>
+              <CNavLink href="/Original">Original Data</CNavLink>
+            </CNavItem>
+            <CNavItem>
+              <CNavLink href="/Missing">Missing Data</CNavLink>
+            </CNavItem>
+            <CNavItem>
+              <CNavLink href="/Outliers">Outliers</CNavLink>
             </CNavItem>
             <CDropdown variant="nav-item" popper={false}>
-              <CDropdownToggle color="secondary">Dropdown button</CDropdownToggle>
+              <CDropdownToggle color="secondary">Data Prediction</CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem href="#">Action</CDropdownItem>
-                <CDropdownItem href="#">Another action</CDropdownItem>
+                <CDropdownItem href="/LinearReg">Linear Regression</CDropdownItem>
+                <CDropdownItem href="/Interpolate">Interpolation</CDropdownItem>
                 <CDropdownDivider />
-                <CDropdownItem href="#">Something else here</CDropdownItem>
+                <CDropdownItem href="#">K-Nearest Neighbour</CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
             <CNavItem>
-              <CNavLink href="#" disabled>
-                Disabled
+              <CNavLink href="#">
+                All charts
               </CNavLink>
             </CNavItem>
           </CNavbarNav>
-          <CForm className="d-flex">
-            <CFormInput type="search" className="me-2" placeholder="Search" />
-            <CButton type="submit" color="success" variant="outline">
-              Search
-            </CButton>
-          </CForm>
         </COffcanvasBody>
       </COffcanvas>
     </CContainer>

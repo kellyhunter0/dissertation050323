@@ -18,11 +18,16 @@ export const InterpolationChart = () => {
       const chart2 = Plot.plot({
         
         style: {
-          background: "transparent"
+          background: "transparent",
+          
         },
         y: {
           grid: true
         },
+        x: {
+          grid:true
+        },
+
         color: {
           type: "diverging",
           scheme: "burd",
@@ -40,13 +45,13 @@ export const InterpolationChart = () => {
     }, [linreg])
 
 return (
-    <header className="App-header" ref={ref3}>
+    <div className="col-lg-6" ref={ref3}>
     <p>
       Replaced all LPG values with Interpolation Predictions<br/> File Location:<code>./front-end/src/AllPredictedLpg.js</code> and save to reload. 
     </p>
     <p>All lpg values are predicted and plotted to show the difference in plotting the two charts (one with some predictions, and the other that's entirely predicted)</p>
     
-  </header>
+  </div>
 
   
   )

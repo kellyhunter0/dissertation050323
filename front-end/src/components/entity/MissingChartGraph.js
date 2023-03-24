@@ -73,19 +73,22 @@ export const MissingDataChart = () => {
     return (
       <>
 
-    <header className="App-header" ref={ref}>
+  <div className="row">
+    <div className="col" ref={ref}>
         <p>
           Removal of Created Missing Values <br/> File Location:<code>./front-end/src/MissingChartGraph.js</code> and save to reload. 
         </p>
         <p>Values are randomly assigned as NaN and then removed from the dataset to compare with the first chart.</p>
 
-      </header>
-      <header className="App-header" ref={ref2}>
+      </div>
+      <div className="col" ref={ref2}>
         <p>
           Axis Values Flipped Around<br/> File Location:<code>./front-end/src/MissingChartGraph.js</code> and save to reload. 
         </p>
         <p>Values are randomly assigned as NaN and then kept in the dataset to compare with when they are removed.</p>
-      </header>
+      </div>
+    </div>
+
       </>
 
 

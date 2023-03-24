@@ -15,13 +15,16 @@ from flaskname import * # gets the flask app name function from py file
 #from sklearn.neighbors import LocalOutlierFactor
 from outlierRemoval import removeOutliers
 from gaussianDistribution import gaussianDistribution
-
+from linearRegression import knearest, optimize_k
 FILE_NAME = "./../front-end/public/datasets/original/iot_telemetry_data.csv"
+FILE_MISSING = "./../front-end/public/datasets/missing/missingvalues.csv"
  
 # identify the columns in the csv
 columns = ["ts","device","co","humidity","light","lpg","motion","smoke","temp"]
+columnsM = ["carbon-monoxide","humidity","lpg","smoke","temperature"]
 # use the columns with the specified file name
 dataframe = pd.read_csv(FILE_NAME, usecols=columns)
+df = pd.read_csv(FILE_MISSING, usecols=columnsM )
 
 # Set flask name, this is standard
 app = flaskNameValue()
@@ -42,7 +45,7 @@ removeOutliers() # this works
 # this is to affect the wuality of the visualisation and the linear regression line of best fit
 gaussianDistribution() # this also works
 
-
+k_errors = optimize_k(data=df, target='lpg')
 
 
 # API routes for data. 

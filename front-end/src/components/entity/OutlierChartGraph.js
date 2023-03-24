@@ -114,19 +114,19 @@ export function OutlierDataChart(headerRef){
     return (
 
       <>
-      <header className="App-header" ref={ref}>
+      <div className="col-lg-6" ref={ref}>
         <p>
           x: LPG, y: CO - After Outlier Removal <br/> File Location:<code>./front-end/src/OutlierChartGraph.js</code> and save to reload. 
         </p>
         <p>Outliers have been identified using IQR calculations to identify upper and lower percentiles. These values has been noted as NaN</p>
-        </header>
-        <header className="App-header" ref={headerRef}>
+        </div>
+        <div className="col-lg-6" ref={headerRef}>
         <p>
         x: CO, y: LPG - After Outlier Removal <br/> File Location:<code>./front-end/src/OutlierChartGraph.js</code> and save to reload. 
         </p>
         <p>The above outliers have been removed from the dataset.</p>
 
-        </header>
+        </div>
       </>
 
 

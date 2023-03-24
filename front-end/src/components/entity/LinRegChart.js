@@ -41,12 +41,12 @@ export const LinRegChartMissing = () => {
     }, [linreg])
 
     return (
-        <header className="App-header" ref={ref}>
+        <div className="col-lg-6" ref={ref}>
         <p>
           Replaced Missing Values with Linear Regression Predictions<br/> File Location:<code>./front-end/src/LinRegChart.js</code> and save to reload. 
         </p>
         <p>Values are randomly assigned as NaN and then replaced with linear regression predictions to compare with the first chart.</p>
-      </header>
+      </div>
 
       
       )

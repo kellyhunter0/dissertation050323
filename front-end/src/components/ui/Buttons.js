@@ -13,7 +13,7 @@ return (
 <>
 
 <CButton>
-<Icon icon="mdi:chart-bell-curve-cumulative" />
+<Icon icon="mdi:chart-bell-curve-cumulative" href=''/>
 </CButton>
 
 <CButton><Icon icon="mdi:chart-areaspline-variant"/> </CButton>

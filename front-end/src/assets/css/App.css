@@ -27,8 +27,7 @@
 /*282c34 - original app header color*/
 .App-header {
   background-color: #282c34;
-  border-radius: 25px;
-  border: #fff solid 10px;
+
   min-height: 100vh;
   display: flex;
   flex-direction: column;

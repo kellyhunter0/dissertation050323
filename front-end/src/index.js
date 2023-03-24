@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/css/index.css';
-import App from './screens/App';
+import App from './pages/App';
+import Interpolate from './pages/Interpolate';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
