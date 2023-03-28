@@ -139,8 +139,12 @@ def interpolated_values():
 def lr_values():
     print("\n_________Linear Regression Predictions____________")
     dataf = pd.read_csv('./../front-end/public/datasets/original/half-removed.csv', nrows=202592)  
-    x = dataframe['carbon-monoxide'].values.reshape(-1,1)
-    y = dataframe['lpg'].values.reshape(-1,1)
+    date = dataframe.drop("date", axis=1)
+    print(date)
+    x = date.drop("lpg", axis=1)
+    print(x)
+    x = x.values
+    y = date['lpg'].values
     X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=202591, random_state=0)
     lr.fit(x, y)
     y_pred = lr.predict(X_test)
@@ -156,12 +160,12 @@ def lr_values():
     print(df)
     mean_square_error(dataf['lpg'], missingvalues['lpg'])
     print("\n_____________________________________________")
-    print("\n___LinReg Calculations: LR Values__")
+    print("\n________LinReg Calculations: LR Values_______")
     x2 = dataf['carbon-monoxide'].values.reshape(-1,1)
     y2 = missingvalues['lpg'].values.reshape(-1,1)
     CallLinearReg(x2, y2) # this calls the function to get the intercept and coefficient before the data has been altered
-def reg_predict():
 
+def reg_predict():
     print("\n___________________________________________________________")
     print("\n_________Regression & Interpolation Predictions____________")
     x1 = complete['carbon-monoxide'].values.reshape(-1,1)
