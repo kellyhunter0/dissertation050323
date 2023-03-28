@@ -8,6 +8,7 @@ import MissingView from './Missing';
 import OriginalView from './Original';
 import OutlierView from './Outliers';
 import HomeView from './Home';
+import KNNView from './KNN';
 
 
 
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/Missing" Component={MissingView}/>
           <Route path="/Original" Component={OriginalView}/>
           <Route path="/Outliers" Component={OutlierView}/>
+          <Route path="/KNN" Component={KNNView}/>
         </Routes>
         </div>
       </BrowserRouter>

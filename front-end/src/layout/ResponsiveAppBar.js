@@ -95,7 +95,7 @@ return (
                 <CDropdownItem href="/LinearReg">Linear Regression</CDropdownItem>
                 <CDropdownItem href="/Interpolate">Interpolation</CDropdownItem>
                 <CDropdownDivider />
-                <CDropdownItem href="#">K-Nearest Neighbour</CDropdownItem>
+                <CDropdownItem href="/KNN">K-Nearest Neighbour</CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
             <CNavItem>
