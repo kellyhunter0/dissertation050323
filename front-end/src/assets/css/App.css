@@ -525,9 +525,6 @@ text {
   .card {
     max-width: 300px!important
   }
-  .card .card-img {
-    display:none
-  }
   .header-mobile {
     margin-top: 0;
     margin-right:0;
@@ -577,9 +574,6 @@ text {
   .card {
     max-width: 768px!important
   }
-  .card .card-img {
-    display:block
-  }
   .header-mobile {
     margin-top: 40%!important;
     margin-right:30%!important;
@@ -606,9 +600,6 @@ text {
   .card {
     max-width: 800px!important
   }
-  .card .card-img {
-    display:block
-  }
 }
 
 @media (min-width: 1200px) {
@@ -623,9 +614,7 @@ text {
   .card {
     max-width: 1000px!important
   }
-  .card .card-img {
-    display:block
-  }
+
 }
 
 @media (min-width: 1340px) {
@@ -634,9 +623,7 @@ text {
   .card {
     max-width: 560px!important
   }
-  .card .card-img {
-    display:block
-  }
+
 }
 
 @media (min-width: 1400px) {
