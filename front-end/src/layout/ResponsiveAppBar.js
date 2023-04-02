@@ -41,9 +41,7 @@ export const ResponsiveAppBar = () => {
     const [visible, setVisible] = useState(false)
     const [isActive, setIsActive] = useState(false);
     const [isActive2, setIsActive2] = useState(false);
-    function myFunction(x) {
-      x.classList.toggle("less-icon");
-    }
+
     // return (
     //   <CNavbar colorScheme="dark" className="bg-dark" expand="xxl">
         
@@ -108,7 +106,7 @@ return (
                 
               <CDropdownToggle color="" className="dropdown-toggle" style={{display: "none"}} >
                 Data Prediction
-                <ExpandMoreIcon onClick={()=>{myFunction(this)}}/>
+                <ExpandMoreIcon />
   
               </CDropdownToggle>
             

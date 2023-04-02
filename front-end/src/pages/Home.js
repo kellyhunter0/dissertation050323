@@ -1,4 +1,5 @@
 import '../assets/css/App.css';
+import { Footer } from '../layout/Footer';
 import React from 'react'; 
 import { useLocation } from 'react-router';
 import { CardOriginal } from '../components/ui/Card-Original';
@@ -6,8 +7,7 @@ import { CardOutliers } from '../components/ui/Card-Outliers';
 import { CardKNN } from '../components/ui/Card-KNN';
 import { CardLinearR } from '../components/ui/Card-LR';
 import { CardMissing } from '../components/ui/Card-Missing';
-import { CardNormalD } from '../components/ui/Card-NormalD';
-
+import { CardNormalD } from '../components/ui/Card-NormalD'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -102,10 +102,11 @@ export default function HomeView(props) {
       </Grid>
     </Grid>
         
-        
+ 
         {/* <OriginalDataChart></OriginalDataChart> */}
 
         </div>    </div>
+        <Footer></Footer>
     </>
 
 

@@ -1,6 +1,29 @@
 .App {
   text-align: center;
 }
+.footer .nav-link {
+  color: #344767;
+  font-weight: 400;
+  font-size: 0.875rem;
+  padding-top: 0;
+  padding-bottom: 0.25rem;
+}
+.social-hover:link, .social-hover:visited{
+  opacity: 1 !important;
+  transition: opacity 0.3 ease;
+  color:white
+}
+.social-hover:hover, .social-link:active{
+  color: #00d8ff;
+}
+.footer .nav-link:hover {
+  opacity: 1 !important;
+  transition: opacity 0.3 ease;
+}
+
+.footer .footer-logo {
+  max-width: 2rem;
+}
 
 .App-logo {
   height: 40vmin;

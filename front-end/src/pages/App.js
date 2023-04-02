@@ -2,6 +2,7 @@ import '../assets/css/App.css';
 
 import {ResponsiveAppBar} from "../layout/ResponsiveAppBar";
 import {Header} from "../layout/Header";
+import {Footer} from "../layout/Footer";
 import React, {useState} from 'react'; 
 import {BrowserRouter, Route, Routes } from 'react-router-dom';
 import LinearView from './LinearReg';
@@ -82,8 +83,9 @@ export default function App() {
         <InterpolationChart></InterpolationChart>
       </header>
     </div> */}
-    </>
+    
 
+    </>
 
   );
 
