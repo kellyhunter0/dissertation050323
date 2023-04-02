@@ -6,7 +6,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 export const Footer = () => 
 
 
-<><footer className=" footer font-small bg-dark  opacity-8 text-white blue pt-4" style={{height:"130px",width:"100%"}}>
+<><footer className=" footer font-small bg-dark opacity-8 text-white blue pt-4">
 
     <div className="container-fluid text-center text-md-left">
         <div className="row">

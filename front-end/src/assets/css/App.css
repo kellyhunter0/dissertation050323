@@ -23,6 +23,11 @@
 
 .footer .footer-logo {
   max-width: 2rem;
+
+}
+.footer {
+  width: 100%;
+  left:0
 }
 
 .App-logo {
@@ -196,11 +201,16 @@
   position: relative;
 
 }
+html {
+  position: relative;
+  min-height: 100%;
+}
 .App-link {
   color: #61dafb;
 }
 body{
   font-family: 'Roboto', sans-serif;
+  
 }
   .container{
     width:250px;

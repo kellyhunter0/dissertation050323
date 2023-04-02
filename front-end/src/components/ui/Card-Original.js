@@ -11,7 +11,7 @@ export const CardOriginal = () => {
 
 
 return (
-<Card sx={{ maxWidth: 800 }}>
+<Card sx={{ maxWidth: 800, minWidth: 500}}>
 <CardMedia
   component="img"
   alt="Original Data"
