@@ -24,25 +24,40 @@ export const KNNChart = () => {
         const chart2 = Plot.plot({
           
           style: {
-            background: "transparent",
-            
+            background: "white",
+            padding: '20px',
+            color: 'black',
+            marginLeft: "auto",
+            marginBottom: "0",
+            marginRight: "auto",
+            marginTop: "0",
+            textAlign: "center"
           },
           y: {
-            grid: true
+            grid: true,
+            label: "lpg (ppm (%)) ↑"
           },
           x: {
-            grid:true
+            label: "carbon monoxide (ppm (%)) →"
           },
-  
+          fill: {
+            textAlign: "center",
+            marginLeft: "auto",
+            marginBottom: "0",
+            marginRight: "auto",
+          },
           color: {
             type: "diverging",
-            scheme: "burd",
-            legend:true
+            scheme: "buylrd",
+            legend: true,
+            label: "smoke (ppm (%)) →",
+            
+            
           },
           marks: [
             Plot.ruleY([0]),
-            Plot.dot(knn, {x: "lpg", y: "carbon-monoxide",  fill:"smoke"}),
-            Plot.linearRegressionY(knn, {x: "lpg", y: "carbon-monoxide", stroke: "steelblue", ci: 0.95})
+            Plot.dot(knn, {x: "carbon-monoxide", y: "lpg",  fill:"smoke"}),
+            Plot.linearRegressionY(knn, {x: "carbon-monoxide", y: "lpg", stroke: "steelblue", ci: 0.95})
           ],
           marginBottom: 50,
         });
@@ -74,7 +89,7 @@ export const KNNChart = () => {
         },
         marks: [
           Plot.ruleY([0]),
-          Plot.dot(knnpredict, {x: "carbon-monoxide", y: "lpg"}),
+          Plot.dot(knnpredict, {x: "carbon-monoxide", y: "lpg", fill: "smoke"}),
           Plot.linearRegressionY(knnpredict, {x: "carbon-monoxide", y: "lpg", stroke: "steelblue", ci: 0.95})
         ],
         marginBottom: 50,
