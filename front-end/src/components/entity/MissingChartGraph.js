@@ -5,6 +5,7 @@ import React, {useEffect, useRef, useState} from 'react';
 
 
 
+
 export const MissingDataChart = () => {
     const ref =  useRef();
     const ref2 =  useRef();
@@ -24,15 +25,35 @@ export const MissingDataChart = () => {
       const chart2 = Plot.plot({
         
         style: {
-          background: "transparent"
+          background: "white",
+          padding: '20px',
+          color: 'black',
+          marginLeft: "auto",
+          marginBottom: "0",
+          marginRight: "auto",
+          marginTop: "0",
+          textAlign: "center"
         },
         y: {
-          grid: true
+          grid: true,
+          label: "lpg (ppm (%)) ↑"
+        },
+        x: {
+          label: "carbon monoxide (ppm (%)) →"
+        },
+        fill: {
+          textAlign: "center",
+          marginLeft: "auto",
+          marginBottom: "0",
+          marginRight: "auto",
         },
         color: {
           type: "diverging",
-          scheme: "burd",
-          legend:true
+          scheme: "buylrd",
+          legend: true,
+          label: "smoke (ppm (%)) →",
+          
+          
         },
         marks: [
           Plot.ruleY([0]),
@@ -45,31 +66,31 @@ export const MissingDataChart = () => {
       return () => chart2.remove();
     }, [missingData])
 
-    useEffect(() => {
-      if(removeMissing === undefined) return;
-      const chart2 = Plot.plot({
+    // useEffect(() => {
+    //   if(removeMissing === undefined) return;
+    //   const chart2 = Plot.plot({
         
-        style: {
-          background: "transparent"
-        },
-        y: {
-          grid: true
-        },
-        color: {
-          type: "diverging",
-          scheme: "burd",
-          legend:true
-        },
-        marks: [
-          Plot.ruleY([0]),
-          Plot.dot(removeMissing, {y: "carbon-monoxide", x: "lpg",  fill:"smoke"}),
-          Plot.linearRegressionY(removeMissing, {y: "carbon-monoxide", x: "lpg", stroke: "steelblue", ci: 0.95})
-        ],
-        marginBottom: 50,
-      });
-      ref2.current.append(chart2);
-      return () => chart2.remove();
-    }, [removeMissing])
+    //     style: {
+    //       background: "transparent"
+    //     },
+    //     y: {
+    //       grid: true
+    //     },
+    //     color: {
+    //       type: "diverging",
+    //       scheme: "burd",
+    //       legend:true
+    //     },
+    //     marks: [
+    //       Plot.ruleY([0]),
+    //       Plot.dot(removeMissing, {y: "carbon-monoxide", x: "lpg",  fill:"smoke"}),
+    //       Plot.linearRegressionY(removeMissing, {y: "carbon-monoxide", x: "lpg", stroke: "steelblue", ci: 0.95})
+    //     ],
+    //     marginBottom: 50,
+    //   });
+    //   ref2.current.append(chart2);
+    //   return () => chart2.remove();
+    // }, [removeMissing])
     return (
       <>
 
@@ -81,12 +102,12 @@ export const MissingDataChart = () => {
         <p>Values are randomly assigned as NaN and then removed from the dataset to compare with the first chart.</p>
 
       </div>
-      <div className="col" ref={ref2}>
+      {/* <div className="col" ref={ref2}>
         <p>
           Axis Values Flipped Around<br/> File Location:<code>./front-end/src/MissingChartGraph.js</code> and save to reload. 
         </p>
         <p>Values are randomly assigned as NaN and then kept in the dataset to compare with when they are removed.</p>
-      </div>
+      </div> */}
     </div>
 
       </>
