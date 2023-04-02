@@ -12,12 +12,13 @@ export const CardMissing = () => {
 
 
 return (
-<Card sx={{ maxWidth: 800 }}>
+<Card className='card' sx={{ maxWidth: 800 }}>
 <CardMedia
   component="img"
   alt="Missing Data"
   height="525"
   image={missing}
+  className='card-img'
 />
 <CardContent>
   <Typography gutterBottom variant="h5" component="div">

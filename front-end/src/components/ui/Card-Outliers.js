@@ -11,12 +11,13 @@ export const CardOutliers = () => {
 
 
 return (
-<Card sx={{ maxWidth: 800 }}>
+<Card className='card' sx={{ maxWidth: 600 }}>
 <CardMedia
   component="img"
   alt="Outlier Data"
   height="520"
   image={outlier}
+  className='card-img img-fluid'
 />
 <CardContent>
   <Typography gutterBottom variant="h5" component="div">

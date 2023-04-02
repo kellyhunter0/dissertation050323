@@ -11,12 +11,13 @@ export const CardLinearR = () => {
 
 
 return (
-<Card sx={{ maxWidth: 800 }}>
+<Card className='card' sx={{maxWidth: 800 }}>
 <CardMedia
   component="img"
   alt="Linear Regression Data"
   height="500"
-  image={linearr}
+  image={linearr} 
+  className='card-img'
 />
 <CardContent>
   <Typography gutterBottom variant="h5" component="div">

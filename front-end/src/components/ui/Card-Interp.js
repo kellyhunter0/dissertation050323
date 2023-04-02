@@ -11,12 +11,13 @@ export const CardInterp = () => {
 
 
 return (
-<Card sx={{ maxWidth: 800 }}>
+<Card className='card' sx={{ maxWidth: 800 }}>
 <CardMedia
   component="img"
   alt="Interpolated Data"
   height="500"
   image={interp}
+  className='card-img'
 />
 <CardContent>
   <Typography gutterBottom variant="h5" component="div">

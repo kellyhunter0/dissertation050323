@@ -11,12 +11,13 @@ export const CardNormalD = () => {
 
 
 return (
-<Card sx={{ maxWidth: 800 }}>
+<Card className='card' sx={{ maxWidth: 800 }}>
 <CardMedia
   component="img"
   alt="Normal Distribution Data"
   height="500"
   image={normald}
+  className='card-img'
 />
 <CardContent>
   <Typography gutterBottom variant="h5" component="div">

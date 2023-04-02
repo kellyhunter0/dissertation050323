@@ -11,12 +11,13 @@ export const CardOriginal = () => {
 
 
 return (
-<Card sx={{ maxWidth: 800, minWidth: 500}}>
+<Card className='card' sx={{ maxWidth: 800}}>
 <CardMedia
   component="img"
   alt="Original Data"
   height="520"
   image={original}
+  className='card-img'
 />
 <CardContent>
   <Typography gutterBottom variant="h5" component="div">
