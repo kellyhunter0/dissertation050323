@@ -39,7 +39,7 @@ export default function HomeView(props) {
     <>
         <header className='bg-light' style={{background: "linear-gradient(180.3deg, rgb(221, 221, 221) 5.5%, rgb(110, 136, 161) 90.2%)"}}>
     <div className="white-box" ></div>
-    <div className="page-header min-vh-60 home" >
+    <div className="page-header min-vh-65 home" >
     <div className="  min-vh-50">
     
     <div className="container">
