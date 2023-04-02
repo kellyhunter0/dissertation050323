@@ -121,7 +121,9 @@ def interpolated_values():
     
     print("\n_________Interpolated Predictions____________")
     temp = pd.read_csv('./../front-end/public/datasets/original/half-removed.csv', usecols=completeColumns)
-    dataframe['lpg'].interpolate(method='linear', inplace=True, limit_direction="both") 
+    dataframe['lpg'].interpolate( method='piecewise_polynomial', inplace=True, limit_direction="both") 
+    dataframe['lpg'].interpolate( method='linear', inplace=True, limit_direction="both") 
+    print(dataframe['lpg'])
     dataframe.drop(['date'], axis=1)
     dataframe.to_csv('./../front-end/public/datasets/interpolation/missing-filled-interpolate.csv')
     drop = dataframe.drop(['date'], axis=1)
@@ -134,9 +136,9 @@ def interpolated_values():
     # finish predicting the values 
     print("\n_____________________________________________")
     print("\n___LinReg Calculations: Interpolated Values__")
-    CallLinearReg(x,y) # this calls the function to get the intercept and coefficient before the data has been altered
+    CallLinearReg(x,y) # this calls the function to get the intercept and coefficient after the data has been altered
 
-def lr_values():
+def lr_values(): 
     print("\n_________Linear Regression Predictions____________")
     dataf = pd.read_csv('./../front-end/public/datasets/original/half-removed.csv', nrows=202592)  
     date = dataframe.drop("date", axis=1)

@@ -89,7 +89,7 @@ def optimize_k(data, target):
 def compare(predicted, actual):
     predicted = pd.read_csv('./../front-end/public/datasets/missing/knn-predictions.csv', nrows=202592)
     df = pd.DataFrame({'Actual':actual['lpg'], 'Predicted': predicted['lpg']})
-    df2 = pd.DataFrame({'lpg':predicted['lpg'], 'carbon-monoxide': actual['carbon-monoxide']})
+    df2 = pd.DataFrame({'lpg':predicted['lpg'], 'carbon-monoxide': actual['carbon-monoxide'], 'smoke':actual['smoke']})
     df2.to_csv('./../front-end/public/datasets/missing/knn-predict-colpg.csv', index=False)
     print("Completely predicted values compared to original\n",df)
     error2 = sqrt(mean_squared_error(actual['lpg'], predicted['lpg']))
