@@ -29,16 +29,34 @@ export function OutlierDataChart(headerRef){
       const chart = Plot.plot({
   
         style: {
-          background: "transparent"
+          background: "white",
+          padding: '20px',
+          color: 'black',
+          marginLeft: "auto",
+          marginBottom: "0",
+          marginRight: "auto",
+          marginTop: "0",
+          textAlign: "center"
         },
         y: {
-          grid: true
+          grid: true,
+          label: "lpg (ppm (%)) ↑"
+        },
+        x: {
+          label: "carbon monoxide (ppm (%)) →"
+        },
+        fill: {
+          textAlign: "center",
+          marginLeft: "auto",
+          marginBottom: "0",
+          marginRight: "auto",
         },
         color: {
           type: "diverging",
-          scheme: "burd",
+          scheme: "buylrd",
           legend: true,
-          background: "transparent",
+          label: "smoke (ppm (%)) →",
+          
           
         },
         marks: [
@@ -52,34 +70,48 @@ export function OutlierDataChart(headerRef){
       headerRef.current.append(chart);
       return () => chart.remove();
     }, [bigData]);
-    useEffect(() => {
-      if (bigData === undefined) return;
-      const chart = Plot.plot({
-  
-        style: {
-          background: "transparent"
-        },
-        y: {
-          grid: true
-        },
-        color: {
-          type: "diverging",
-          scheme: "burd",
-          legend: true,
-          background: "transparent",
+    // useEffect(() => {
+    //   if (bigData === undefined) return;
+    //   const chart = Plot.plot({
+    //     style: {
+    //       background: "white",
+    //       padding: '20px',
+    //       color: 'black',
+    //       marginLeft: "auto",
+    //       marginBottom: "0",
+    //       marginRight: "auto",
+    //       marginTop: "0",
+    //       textAlign: "center"
+    //     },
+    //     y: {
+    //       grid: true
+    //     },
+    //     fill: {
+    //       textAlign: "center",
+    //       marginLeft: "auto",
+    //       marginBottom: "0",
+    //       marginRight: "auto",
+    //     },
+    //     color: {
+    //       type: "diverging",
+    //       scheme: "buylrd",
+    //       legend: true,
+    //       label: "smoke (°C) →",
           
-        },
-        marks: [
-          Plot.ruleY([0]),
-          Plot.dot(bigData, {y: "carbon-monoxide", x: "lpg", fill:"smoke"}),
-          Plot.linearRegressionY(bigData, {y: "carbon-monoxide", x: "lpg", stroke: "steelblue", ci: 0.95})
-        ],
-        marginBottom: 50,
-      });
+          
+    //     },
+    //     marks: [
+    //       Plot.ruleY([0]),
+    //       Plot.dot(bigData, {y: "carbon-monoxide", x: "lpg", fill:"smoke"}),
+    //       Plot.linearRegressionY(bigData, {y: "carbon-monoxide", x: "lpg", stroke: "steelblue", ci: 0.95})
+    //     ],
+    //     marginBottom: 50,
+    //     strokeWidth:0.5
+    //   });
   
-      ref.current.append(chart);
-      return () => chart.remove();
-    }, [bigData]);
+    //   ref.current.append(chart);
+    //   return () => chart.remove();
+    // }, [bigData]);
     
     // useEffect(() => {
     //   if (preOutlierRemoval === undefined) return;
@@ -114,18 +146,31 @@ export function OutlierDataChart(headerRef){
     return (
 
       <>
-      <div className="col-lg-6" ref={ref}>
+                    <br></br>
+        <br></br>
+        <br></br>
+
+
+        <div className="col-lg-12">
+        <div className="card" style={{backgroundColor:"rgba(95, 95, 95, 0.1)", margin:'auto'}}>
+        <div className="card-header">
+          header
+          </div>
+        <div className="card-body"> dadadad</div>
+      {/* <div className="col" ref={ref}>
         <p>
           x: LPG, y: CO - After Outlier Removal <br/> File Location:<code>./front-end/src/OutlierChartGraph.js</code> and save to reload. 
         </p>
         <p>Outliers have been identified using IQR calculations to identify upper and lower percentiles. These values has been noted as NaN</p>
-        </div>
-        <div className="col-lg-6" ref={headerRef}>
+        </div> */}
+        <div className="col" ref={headerRef}>
         <p>
         x: CO, y: LPG - After Outlier Removal <br/> File Location:<code>./front-end/src/OutlierChartGraph.js</code> and save to reload. 
         </p>
         <p>The above outliers have been removed from the dataset.</p>
 
+        </div>
+        </div>
         </div>
       </>
 
