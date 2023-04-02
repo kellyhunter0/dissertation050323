@@ -24,18 +24,35 @@ export function GuassianDistribChart(headerRef){
     useEffect(() => {
       if (gd === undefined) return;
       const chart = Plot.plot({
-  
         style: {
-          background: "transparent"
+          background: "white",
+          padding: '20px',
+          color: 'black',
+          marginLeft: "auto",
+          marginBottom: "0",
+          marginRight: "auto",
+          marginTop: "0",
+          textAlign: "center"
         },
         y: {
-          grid: true
+          grid: true,
+          label: "lpg (ppm (%)) ↑"
+        },
+        x: {
+          label: "carbon monoxide (ppm (%)) →"
+        },
+        fill: {
+          textAlign: "center",
+          marginLeft: "auto",
+          marginBottom: "0",
+          marginRight: "auto",
         },
         color: {
           type: "diverging",
-          scheme: "burd",
+          scheme: "buylrd",
           legend: true,
-          background: "transparent",
+          label: "smoke (ppm (%)) →",
+          
           
         },
         marks: [
