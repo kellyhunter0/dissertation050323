@@ -18,7 +18,7 @@ return (
   alt="Missing Data"
   height="525"
   image={missing}
-  className='card-img'
+  className='card-img img-fluid'
 />
 <CardContent>
   <Typography gutterBottom variant="h5" component="div">

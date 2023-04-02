@@ -17,7 +17,7 @@ return (
   alt="Interpolated Data"
   height="500"
   image={interp}
-  className='card-img'
+  className='card-img img-fluid'
 />
 <CardContent>
   <Typography gutterBottom variant="h5" component="div">

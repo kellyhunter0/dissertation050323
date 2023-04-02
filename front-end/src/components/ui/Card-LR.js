@@ -17,7 +17,7 @@ return (
   alt="Linear Regression Data"
   height="500"
   image={linearr} 
-  className='card-img'
+  className='card-img img-fluid'
 />
 <CardContent>
   <Typography gutterBottom variant="h5" component="div">

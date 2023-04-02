@@ -621,7 +621,21 @@ text {
     max-width: 1140px;
   }
   .card {
-    
+    max-width: 1000px!important
+  }
+  .card .card-img {
+    display:block
+  }
+}
+
+@media (min-width: 1340px) {
+
+
+  .card {
+    max-width: 560px!important
+  }
+  .card .card-img {
+    display:block
   }
 }
 

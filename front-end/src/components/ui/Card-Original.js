@@ -17,7 +17,7 @@ return (
   alt="Original Data"
   height="520"
   image={original}
-  className='card-img'
+  className='card-img img-fluid'
 />
 <CardContent>
   <Typography gutterBottom variant="h5" component="div">

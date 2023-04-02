@@ -17,7 +17,7 @@ return (
   alt="Normal Distribution Data"
   height="500"
   image={normald}
-  className='card-img'
+  className='card-img img-fluid'
 />
 <CardContent>
   <Typography gutterBottom variant="h5" component="div">
