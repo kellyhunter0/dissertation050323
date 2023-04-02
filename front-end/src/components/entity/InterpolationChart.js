@@ -18,20 +18,35 @@ export const InterpolationChart = () => {
       const chart2 = Plot.plot({
         
         style: {
-          background: "transparent",
-          
+          background: "white",
+          padding: '20px',
+          color: 'black',
+          marginLeft: "auto",
+          marginBottom: "0",
+          marginRight: "auto",
+          marginTop: "0",
+          textAlign: "center"
         },
         y: {
-          grid: true
+          grid: true,
+          label: "lpg (ppm (%)) ↑"
         },
         x: {
-          grid:true
+          label: "carbon monoxide (ppm (%)) →"
         },
-
+        fill: {
+          textAlign: "center",
+          marginLeft: "auto",
+          marginBottom: "0",
+          marginRight: "auto",
+        },
         color: {
           type: "diverging",
-          scheme: "burd",
-          legend:true
+          scheme: "buylrd",
+          legend: true,
+          label: "smoke (ppm (%)) →",
+          
+          
         },
         marks: [
           Plot.ruleY([0]),
@@ -39,6 +54,7 @@ export const InterpolationChart = () => {
           Plot.linearRegressionY(linreg, {x: "carbon-monoxide", y: "lpg", stroke: "steelblue", ci: 0.95})
         ],
         marginBottom: 50,
+        strokeWidth:0.5
       });
       ref3.current.append(chart2);
       return () => chart2.remove();
