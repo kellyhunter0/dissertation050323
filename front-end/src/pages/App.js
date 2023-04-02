@@ -1,6 +1,8 @@
 import '../assets/css/App.css';
+import '../assets/css/material-kit.css';
 import {ResponsiveAppBar} from "../layout/ResponsiveAppBar";
-import React from 'react'; 
+import {Header} from "../layout/Header";
+import React, {useState} from 'react'; 
 import {BrowserRouter, Route, Routes } from 'react-router-dom';
 import LinearView from './LinearReg';
 import InterpolationView from './Interpolate';
@@ -9,11 +11,18 @@ import OriginalView from './Original';
 import OutlierView from './Outliers';
 import HomeView from './Home';
 import KNNView from './KNN';
+import NormalDistributionView from './NormalDistribution';
 
 
 
+
+// Folder structure in src was inspired by these articles
+/*
+ https://hackernoon.com/structuring-projects-and-naming-components-in-react-1261b6e18d76
+ https://www.sitepoint.com/react-firebase-build-mvp/
+ */
 export default function App() { 
- 
+
 // logs API values to the backend
   // const dig = (obj, target) =>
   // target in obj
@@ -23,14 +32,21 @@ export default function App() {
   //       if (typeof val === 'object') return dig(val, target);
   //     }, undefined);
 
+
+
+
   return (
     <>
     
     
       <BrowserRouter>
+      
     <ResponsiveAppBar/>
 
+   
+
     <div className="App-header">
+    
     
         <Routes>
           <Route path="/Home" Component={HomeView}/>
@@ -41,8 +57,10 @@ export default function App() {
           <Route path="/Original" Component={OriginalView}/>
           <Route path="/Outliers" Component={OutlierView}/>
           <Route path="/KNN" Component={KNNView}/>
+          <Route path="/NormalDistribution" Component={NormalDistributionView}/>
         </Routes>
         </div>
+        
       </BrowserRouter>
 
     {/* <div className="App">

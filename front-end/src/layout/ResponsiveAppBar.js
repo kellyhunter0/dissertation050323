@@ -19,8 +19,10 @@ import { CCloseButton } from '@coreui/react';
 import { CDropdownDivider } from '@coreui/react';
 import { CForm } from '@coreui/react';
 import { CFormInput } from '@coreui/react';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ScatterPlotIcon from '@mui/icons-material/ScatterPlot';
-
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 
@@ -33,7 +35,15 @@ Function of component: This componentised the navigation menu so we can load thi
 import React, {useState} from 'react';
 
 export const ResponsiveAppBar = () => {
+  const [data, setData] = useState({
+    pageName:"Default"
+  })
     const [visible, setVisible] = useState(false)
+    const [isActive, setIsActive] = useState(false);
+    const [isActive2, setIsActive2] = useState(false);
+    function myFunction(x) {
+      x.classList.toggle("less-icon");
+    }
     // return (
     //   <CNavbar colorScheme="dark" className="bg-dark" expand="xxl">
         
@@ -55,47 +65,60 @@ export const ResponsiveAppBar = () => {
     //   </CNavbar>
     // )
 return (
-  <CNavbar colorScheme="dark" className="bg-dark" expand="xxl" style={{height:"100px"}}>
-    <CNavbarBrand className='brand'>
+  
+  <CNavbar colorScheme="dark" className="bg-dark" expand="xxl" style={{height:"100px", marginLeft:0}}>
+    <CNavbarBrand className='navbar-brand'>
 
-       <ScatterPlotIcon className="react-logo" style={{fontSize: "60px" }}></ScatterPlotIcon>
-         <span style={{marginLeft: "100px"}}>DataViz</span>
+       <ScatterPlotIcon className="react-logo" style={{fontSize: "60px", color:"white"}}></ScatterPlotIcon>
+         <h3 style={{marginLeft: "100px", color:"white"}}>DataViz</h3>
           
-           <CNavbarToggler className="toggler"
+           <CNavbarToggler className="toggler" 
              aria-controls="offcanvasNavbar2"
              aria-label="Toggle navigation"
              onClick={() => setVisible(!visible)}
-             />
+             ><MenuIcon></MenuIcon></CNavbarToggler>
         </CNavbarBrand>
     <CContainer fluid>
       <COffcanvas id="offcanvasNavbar2" style={{color:"white", backgroundColor:"#303030"}} placement="end" scroll={true} portal={false} visible={visible} onHide={() => setVisible(false)}>
         <COffcanvasHeader>
-          <COffcanvasTitle>Offcanvas</COffcanvasTitle>
+          <COffcanvasTitle>DataViz</COffcanvasTitle>
           <CCloseButton className="text-reset" onClick={() => setVisible(false)} />
         </COffcanvasHeader>
         <COffcanvasBody>
           <CNavbarNav>
             <CNavItem>
-              <CNavLink href="/Home" active>
+              <CNavLink href="/Home" state={{data:data}} active>
                 Home
               </CNavLink>
             </CNavItem>
             <CNavItem>
-              <CNavLink href="/Original">Original Data</CNavLink>
+              <CNavLink href="/Original" state={{data:data}}>Original Data</CNavLink>
             </CNavItem>
             <CNavItem>
-              <CNavLink href="/Missing">Missing Data</CNavLink>
+              <CNavLink href="/Missing" state={{data:data}}>Missing Data</CNavLink>
             </CNavItem>
             <CNavItem>
-              <CNavLink href="/Outliers">Outliers</CNavLink>
+              <CNavLink href="/Outliers" state={{data:data}}>Outliers</CNavLink>
             </CNavItem>
-            <CDropdown variant="nav-item" popper={false}>
-              <CDropdownToggle color="secondary">Data Prediction</CDropdownToggle>
-              <CDropdownMenu>
-                <CDropdownItem href="/LinearReg">Linear Regression</CDropdownItem>
-                <CDropdownItem href="/Interpolate">Interpolation</CDropdownItem>
+            <CNavItem>
+              <CNavLink href="/NormalDistribution" state={{data:data}}>Normal Distribution</CNavLink>
+            </CNavItem>
+            <CDropdown variant="nav-item" popper={false} >
+              
+                
+              <CDropdownToggle color="" className="dropdown-toggle" style={{display: "none"}} >
+                Data Prediction
+                <ExpandMoreIcon onClick={()=>{myFunction(this)}}/>
+  
+              </CDropdownToggle>
+            
+              <CDropdownMenu className='dropdown-toggle'>
+              <CDropdownItem href="/KNN" state={{data:data}}>K-Nearest Neighbour</CDropdownItem>
+              <CDropdownDivider />
+                <CDropdownItem href="/Interpolate" state={{data:data}}>Interpolation</CDropdownItem>
                 <CDropdownDivider />
-                <CDropdownItem href="/KNN">K-Nearest Neighbour</CDropdownItem>
+                <CDropdownItem href="/LinearReg" state={{data:data}}>Linear Regression</CDropdownItem>
+                
               </CDropdownMenu>
             </CDropdown>
             <CNavItem>
