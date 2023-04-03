@@ -11,7 +11,7 @@ export const CardInterp = () => {
 
 
 return (
-<Card className='card' sx={{ maxWidth: 800 }}>
+<Card className='card-card' sx={{ maxWidth: 800 }}>
 <CardMedia
   component="img"
   alt="Interpolated Data"
@@ -29,7 +29,7 @@ return (
 </CardContent>
 <CardActions>
   <a href='/Interpolate'>
-  <Button size="medium" className='btn btn-primary'>View</Button>
+  <Button variant="contained" color='grey' size="large" style={{marginLeft:"auto", marginRight:"auto"}}>View</Button>
   </a>
 </CardActions>
 </Card>

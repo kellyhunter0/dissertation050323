@@ -23,31 +23,27 @@ export default function InterpolationView(props) {
     <>
         {/* {document.getElementById('name-text').innerText = "Interpolate"} */}
         <header className='bg-light' style={{background: "linear-gradient(180.3deg, rgb(221, 221, 221) 5.5%, rgb(110, 136, 161) 90.2%)"}}>
-    <div className="white-box" ></div>
-    <div className="page-header min-vh-50 interp" >
-    <div className="  min-vh-50">
+
+    <div className="page-header min-vh-70 interp" style={{minHeight: "500px"}}>
+  
     
     <div className="container">
       <div className="row">
-        <div className="col-lg-5 col-md-6 d-flex justify-content-center flex-column" style={{marginTop:"50%"}}>
-          <h1 className="text-white mb-4" id="name-text" style={{zIndex:'1'}} value='pageName'></h1>
-          <p className="text-white opacity-8 lead pe-5 me-5"></p>
-          <div className="buttons">
-   
-          </div>
-        </div>
+ 
         
-        <div className="col-lg-7 col-md-6 d-flex  flex-column" style={{marginTop:"50%", paddingRight:"10%", borderLeft:"1px"}}>
+        <div className="col-lg-7 col-md-6 d-flex  flex-column header-mobile" style={{marginTop:"60px", marginRight:"30px"}}>
           
-          <h1 className="text-white mb-4" id="name-text" style={{zIndex:'1'}} value='pageName'>Interpolation</h1>
-          <p className="text-white opacity-8 lead ">The time is now for it be okay to be great. People in this world shun people for being nice. </p>
+          <h1 className="text-white mb-4 justify-content-left" id="name-text"  value='pageName'>Interpolation</h1>
+          <p className="text-white opacity-8 lead align-items-left header-p">This is a free online tool that aims to help improve data literacy and give an introduction to Data Analysis and Data Science. By talking through the different charts and explaining how to read the <em>x</em> and <em>y</em> axis, you will gain an understanding on how to interpret data. The original Dataset is an IOT Envoironmental Sensor Telemetry dataset that contains over 400,000 rows and 9 columns.   </p>
           <div className="buttons">
-          <a href="#interp" className='btn'>
-            <button type="button"  className="btn btn-white mt-4">Get Started</button>
-            </a>
-            <a href="/LinearReg" className='btn'>
-            <button type="button"  className="btn btn-white mt-4">Next Page</button>
-            </a>
+          <div className="btn-group btn-group" data-toggle="buttons">
+            <label className="btn btn-secondary text-white">
+              <a href="#original" className='text-white'>Start</a>
+            </label>
+            <label className="btn btn-white text-white">
+              <a href="/LinearReg" className='text-dark'> Next Page</a>
+            </label>
+          </div>
             <br/>
             <br/>
             <br/>
@@ -59,13 +55,16 @@ export default function InterpolationView(props) {
         </div>
       </div>
     </div>
-  </div>
+  
   </div>
   </header>
   <div className="Page-Header align-items-center">
       <h1 id='interp'>{data?data.pageName:"Interpolate"}</h1>
         <OriginalDataChart></OriginalDataChart>
         <InterpolationChart></InterpolationChart>
+        <a href="/LinearReg" className='btn'>
+            <button type="button"  className="btn btn-white mt-4">Next Page</button>
+            </a>
 </div>
     </>
 

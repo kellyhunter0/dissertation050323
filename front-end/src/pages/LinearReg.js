@@ -21,51 +21,50 @@ export default function LinearView(props) {
 
   return (
     <>
-<header className='bg-light' style={{background: "linear-gradient(180.3deg, rgb(221, 221, 221) 5.5%, rgb(110, 136, 161) 90.2%)"}}>
-    <div className="white-box" ></div>
-    <div className="page-header min-vh-50 linearR" >
-    <div className="  min-vh-50">
+      <header className='bg-light' style={{background: "linear-gradient(180.3deg, rgb(221, 221, 221) 5.5%, rgb(110, 136, 161) 90.2%)"}}>
+
+<div className="page-header min-vh-70 linearR" style={{minHeight: "500px"}}>
+
+
+<div className="container">
+  <div className="row">
+
     
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-5 col-md-6 d-flex justify-content-center flex-column" style={{marginTop:"50%"}}>
-          <h1 className="text-white mb-4" id="name-text" style={{zIndex:'1'}} value='pageName'></h1>
-          <p className="text-white opacity-8 lead pe-5 me-5"></p>
-          <div className="buttons">
-   
-          </div>
-        </div>
-        
-        <div className="col-lg-7 col-md-6 d-flex  flex-column" style={{marginTop:"50%", paddingRight:"10%", borderLeft:"1px"}}>
-          
-          <h1 className="text-white mb-4" id="name-text" style={{zIndex:'1'}} value='pageName'>Linear Regression</h1>
-          <p className="text-white opacity-8 lead ">The time is now for it be okay to be great. People in this world shun people for being nice. </p>
-          <div className="buttons">
-          <a href="#linearr" className='btn'>
-            <button type="button"  className="btn btn-white mt-4">Get Started</button>
-            </a>
-            <a href="/Home" className='btn'>
-            <button type="button"  className="btn btn-white mt-4">Home Page</button>
-            </a>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-          </div>
-        </div>
+    <div className="col-lg-7 col-md-6 d-flex  flex-column header-mobile" style={{marginTop:"60px", marginRight:"30px"}}>
+      
+      <h1 className="text-white mb-4 justify-content-left" id="name-text"  value='pageName'>Linear Regression</h1>
+      <p className="text-white opacity-8 lead align-items-left header-p">This is a free online tool that aims to help improve data literacy and give an introduction to Data Analysis and Data Science. By talking through the different charts and explaining how to read the <em>x</em> and <em>y</em> axis, you will gain an understanding on how to interpret data. The original Dataset is an IOT Envoironmental Sensor Telemetry dataset that contains over 400,000 rows and 9 columns.   </p>
+      <div className="buttons">
+      <div class="d-grid gap-2 d-md-block">
+      <a href="#home" className='btn'>
+        <button type="button"  className="btn btn-white ">Start</button>
+        </a>
+        <a href="/Home" className='btn'>
+        <button type="button"  className="btn btn-white ">Home</button>
+        </a>
+      </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
       </div>
     </div>
   </div>
-  </div>
-  </header>
+</div>
+
+</div>
+</header>
         {/* {document.getElementById('name-text').innerText = "Linear Regression"} */}
         <div className="Page-Header align-items-center">
         <h1 id='linearr'>{data?data.pageName:"Linear Regression"}</h1>
         <OriginalDataChart></OriginalDataChart>
         <LinRegChartMissing></LinRegChartMissing>
+        <a href="/Home" className='btn'>
+            <button type="button"  className="btn btn-white mt-4">Next Page</button>
+            </a>
 </div>
     </>
 

@@ -51,9 +51,12 @@ export default function HomeView(props) {
           <h1 className="text-white mb-4 justify-content-left" id="name-text"  value='pageName'>Welcome</h1>
           <p className="text-white opacity-8 lead align-items-left header-p">This is a free online tool that aims to help improve data literacy and give an introduction to Data Analysis and Data Science. By talking through the different charts and explaining how to read the <em>x</em> and <em>y</em> axis, you will gain an understanding on how to interpret data. The original Dataset is an IOT Envoironmental Sensor Telemetry dataset that contains over 400,000 rows and 9 columns.   </p>
           <div className="buttons">
-          <a href="#home" className='btn'>
-            <button type="button"  className="btn btn-white mt-4">Get Started</button>
-            </a>
+          <div className="btn-group btn-group" data-toggle="buttons">
+        <label className="btn btn-white text-white">
+              <a href="#home" className='text-dark'>Start</a>
+            </label>
+
+          </div>
             <br/>
             <br/>
             <br/>
