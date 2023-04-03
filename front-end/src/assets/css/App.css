@@ -600,6 +600,19 @@ text {
   .card-card {
     max-width: 800px!important
   }
+  .header-mobile {
+    margin-top: 20%!important;
+    margin-right:10%!important;
+    /*font-size:1em*/
+  }
+  .header-mobile .header-p {
+    font-size:0.7em;
+
+  }
+  #name-text{
+    font-size: 1.6em!important;
+
+  }
 }
 
 @media (min-width: 1200px) {

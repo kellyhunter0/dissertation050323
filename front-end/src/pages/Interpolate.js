@@ -33,7 +33,7 @@ export default function InterpolationView(props) {
         
         <div className="col-lg-7 col-md-6 d-flex  flex-column header-mobile" style={{marginTop:"60px", marginRight:"30px"}}>
           
-          <h1 className="text-white mb-4 justify-content-left" id="name-text"  value='pageName'>Interpolation</h1>
+          <h1 className="text-white mb-4 justify-content-left" id="name-text"  value='pageName'>Data Prediction<br></br>Interpolation</h1>
           <p className="text-white opacity-8 lead align-items-left header-p">This is a free online tool that aims to help improve data literacy and give an introduction to Data Analysis and Data Science. By talking through the different charts and explaining how to read the <em>x</em> and <em>y</em> axis, you will gain an understanding on how to interpret data. The original Dataset is an IOT Envoironmental Sensor Telemetry dataset that contains over 400,000 rows and 9 columns.   </p>
           <div className="buttons">
           <div className="btn-group btn-group" data-toggle="buttons">
