@@ -11,7 +11,7 @@ export const CardOriginal = () => {
 
 
 return (
-<Card className='card' sx={{ maxWidth: 800}}>
+<Card className='card-card' sx={{ maxWidth: 800}}>
 <CardMedia
   component="img"
   alt="Original Data"
@@ -30,7 +30,7 @@ return (
 <CardActions >
 <Box textAlign='center'>
   <a href='/Original'>
-  <Button variant="contained" color='primary' size="large" style={{marginLeft:"auto", marginRight:"auto"}}>View</Button>
+  <Button variant="contained" color='grey' size="large" style={{marginLeft:"auto", marginRight:"auto"}}>View</Button>
   </a> 
   </Box>
 </CardActions>

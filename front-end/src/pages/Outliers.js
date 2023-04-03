@@ -23,46 +23,42 @@ export default function OutlierView(props) {
 
   return (
     <>
-<header className='bg-light' style={{background: "linear-gradient(180.3deg, rgb(221, 221, 221) 5.5%, rgb(110, 136, 161) 90.2%)"}}>
-    <div className="white-box" ></div>
-    <div className="page-header min-vh-50 outliers" >
-    <div className="  min-vh-50">
+      <header className='bg-light' style={{background: "linear-gradient(180.3deg, rgb(221, 221, 221) 5.5%, rgb(110, 136, 161) 90.2%)"}}>
+
+<div className="page-header min-vh-70 outliers" style={{minHeight: "500px"}}>
+
+
+<div className="container">
+  <div className="row">
+
     
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-5 col-md-6 d-flex justify-content-center flex-column" style={{marginTop:"50%"}}>
-          <h1 className="text-white mb-4" id="name-text" style={{zIndex:'1'}} value='pageName'></h1>
-          <p className="text-white opacity-8 lead pe-5 me-5"></p>
-          <div className="buttons">
-   
-          </div>
-        </div>
-        
-        <div className="col-lg-7 col-md-6 d-flex  flex-column" style={{marginTop:"40%", paddingRight:"10%", borderLeft:"1px"}}>
-          
-          <h1 className="text-white mb-4" id="name-text" style={{zIndex:'1'}} value='pageName'>Outliers</h1>
-          <p className="text-white opacity-8 lead ">Outliers are values that fall out-with the normal range. Having a large number present in your data can alter charts and alter the line of best fit in Linear Regression calculations. Removing outliers is sometimes necessary to get a clearer picture. The line of best fit is in <strong>blue</strong> on the charts below.  </p>
-          <div className="buttons">
-            <a href="#outliers" className='btn'>
-            <button type="button"  className="btn btn-white mt-4">Get Started</button>
-            </a>
-            <a href="/NormalDistribution" className='btn'>
-            <button type="button"  className="btn btn-white mt-4">Next Page</button>
-            </a>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-          </div>
-        </div>
+    <div className="col-lg-7 col-md-6 d-flex  flex-column header-mobile" style={{marginTop:"60px", marginRight:"30px"}}>
+      
+      <h1 className="text-white mb-4 justify-content-left" id="name-text"  value='pageName'>Outlier Data</h1>
+      <p className="text-white opacity-8 lead align-items-left header-p">This is a free online tool that aims to help improve data literacy and give an introduction to Data Analysis and Data Science. By talking through the different charts and explaining how to read the <em>x</em> and <em>y</em> axis, you will gain an understanding on how to interpret data. The original Dataset is an IOT Envoironmental Sensor Telemetry dataset that contains over 400,000 rows and 9 columns.   </p>
+      <div className="buttons">
+      <div className="btn-group btn-group" data-toggle="buttons">
+        <label className="btn btn-secondary text-white">
+          <a href="#outliers" className='text-white'>Start</a>
+        </label>
+        <label className="btn btn-white text-white">
+          <a href="/NormalDistribution" className='text-dark'> Next Page</a>
+        </label>
+      </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
       </div>
     </div>
   </div>
-  </div>
-  </header>
+</div>
+
+</div>
+</header>
 
     {/* {data?data.pageName:"Outliers"}  - pass data between pages using react-router location*/}
         {/* {document.getElementById('name-text').innerText = "Outliers"}

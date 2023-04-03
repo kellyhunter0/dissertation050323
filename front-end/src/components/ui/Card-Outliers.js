@@ -11,7 +11,7 @@ export const CardOutliers = () => {
 
 
 return (
-<Card className='card' sx={{ maxWidth: 600 }}>
+<Card className='card-card' sx={{ maxWidth: 600 }}>
 <CardMedia
   component="img"
   alt="Outlier Data"
@@ -27,9 +27,9 @@ return (
     Exploratory data analysis is performed to identify any outliers in the data. Outliers are points that lie outside the range of normal, so something might be too high or too low depending on the context, and this can alter the chart output and change the line of best fit.
   </Typography>
 </CardContent>
-<CardActions>
-  <a href='/Outliers'>
-  <Button size="medium" className='btn btn-primary'>View</Button>
+<CardActions >
+  <a href='/Outliers' className='btn-block'>
+  <Button variant="contained" color='grey' size="large" style={{marginLeft:"auto", marginRight:"auto"}}>View</Button>
   </a>
 </CardActions>
 </Card>

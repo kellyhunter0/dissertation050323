@@ -85,21 +85,21 @@ return (
         <COffcanvasBody>
           <CNavbarNav>
             <CNavItem>
-              <CNavLink href="/Home" state={{data:data}} active>
+              <CNavLink href="/Home" state={{data:data}} >
                 Home
               </CNavLink>
             </CNavItem>
             <CNavItem>
-              <CNavLink href="/Original" state={{data:data}}>Original Data</CNavLink>
+              <CNavLink href="/Original" state={{data:data}} >Original Data</CNavLink>
             </CNavItem>
             <CNavItem>
-              <CNavLink href="/Missing" state={{data:data}}>Missing Data</CNavLink>
+              <CNavLink href="/Missing" state={{data:data}} >Missing Data</CNavLink>
             </CNavItem>
             <CNavItem>
-              <CNavLink href="/Outliers" state={{data:data}}>Outliers</CNavLink>
+              <CNavLink href="/Outliers" state={{data:data}} >Outliers</CNavLink>
             </CNavItem>
             <CNavItem>
-              <CNavLink href="/NormalDistribution" state={{data:data}}>Normal Distribution</CNavLink>
+              <CNavLink href="/NormalDistribution" state={{data:data}} >Normal Distribution</CNavLink>
             </CNavItem>
             <CDropdown variant="nav-item" popper={false} >
               
