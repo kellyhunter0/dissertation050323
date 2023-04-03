@@ -27,16 +27,25 @@ temp = pd.Series(fulldata40lpgframe['temperature'], name='temperature')
 # Currently it only reads the file  and doesn't creat it if it doesn't exist. Fix This!
 
 def guassian_y_value():
+    missing40 = pd.read_csv("./../front-end/public/datasets/missing/missingvalues.csv", usecols=allcols)
+    missing10 = pd.read_csv("./../front-end/public/datasets/missing/missingvalues.csv", usecols=lpgcols)
     # lpg predicted value reads here! only 2001 rows so far
     data40lpg = pd.read_csv("./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv", usecols=lpgcols, nrows=80015) # 20259 is 10%, 80015 is roughly 40%
+    alllpg = pd.read_csv("./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv", usecols=lpgcols) # 20259 is 10%, 80015 is roughly 40%
     data40 = pd.read_csv("./../front-end/public/datasets/original/half-removed.csv", usecols=concatCols, nrows=80015) # nearly there, needs work
     data10lpg = pd.read_csv("./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv", usecols=lpgcols, nrows=20259) # 20259 is 10%, 80015 is roughly 40%
     data10 = pd.read_csv("./../front-end/public/datasets/original/half-removed.csv", usecols=concatCols, nrows=20259) # nearly there, needs work
-    print(data40)
-    print(data40lpg)
+    mSeries40 = pd.Series(alllpg['lpg'])
     # write new lpg value to csv with the columns in half-removed.csv
+    missing40['lpg'].fillna(mSeries40, inplace=True)
+    print(missing40['lpg'])
+    print(missing40.isna().sum())
+    missingFilledND = {"carbon-monoxide": missing40['carbon-monoxide'], "smoke":missing40['smoke'], "lpg":missing40['lpg']}
+    missingDF = pd.DataFrame(missingFilledND)
+    missingDF.to_csv("./../front-end/public/datasets/normal-distribution/missing-filled-nd.csv", index=False)
     data40['lpg'] = data40lpg['lpg']
     data10['lpg'] = data10lpg['lpg']
+
     testframe = {"carbon-monoxide": data40['carbon-monoxide'], "humidity":data40['humidity'], "lpg":data40lpg['lpg'], "smoke":data40['smoke'], "temperature":data40['temperature']}
     testframe2 = {"carbon-monoxide": data10['carbon-monoxide'], "humidity":data10['humidity'], "lpg":data10lpg['lpg'], "smoke":data10['smoke'], "temperature":data10['temperature']}
     frame = pd.DataFrame(testframe)
@@ -85,19 +94,25 @@ def gaussianDistribution():
     rand_data3 = {k:normal(loc=lpgMean, scale=lpgSD, size=(1000,1)) for k,v in lpgPredict.items()} 
     rand_data4 = {k:normal(loc=lpgMean, scale=lpgSD, size=(1000,1)) for k,v in lpgPredict.items()} 
     rand_data5 = {k:normal(loc=lpgMean, scale=lpgSD, size=(1000,1)) for k,v in lpgPredict.items()} 
+    rand_data6 = {k:normal(loc=lpgMean, scale=lpgSD, size=(1000,1)) for k,v in lpgPredict.items()} 
+    rand_data7 = {k:normal(loc=lpgMean, scale=lpgSD, size=(1000,1)) for k,v in lpgPredict.items()} 
+    rand_data8 = {k:normal(loc=lpgMean, scale=lpgSD, size=(1000,1)) for k,v in lpgPredict.items()} 
     print("rand_data type", type(rand_data))
-    writeAll(rand_data, rand_data2, rand_data3, rand_data4, rand_data5)
+    writeAll(rand_data, rand_data2, rand_data3, rand_data4, rand_data5, rand_data6, rand_data7, rand_data8)
     print("Removing punctuation from the file... Please wait...", "./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv")#
     cleanCsv() # Removes [] and '' from csv rows, and checks for any other punctuation
     guassian_y_value() # prints the distribution of the y value (lpg)
 
 
-def writeAll(rand_data, rand_data2, rand_data3, rand_data4, rand_data5):
+def writeAll(rand_data, rand_data2, rand_data3, rand_data4, rand_data5, rand_data6, rand_data7, rand_data8):
     write_lpg_values(rand_data) # function to write current lpg distirbutions to a csv
     write_append_lpg_values(rand_data2) # function to write current lpg distirbutions to a csv
     write_append_lpg_values(rand_data3) # function to write current lpg distirbutions to a csv
     write_append_lpg_values(rand_data4) # function to write current lpg distirbutions to a csv
     write_append_lpg_values(rand_data5) # function to write current lpg distirbutions to a csv
+    write_append_lpg_values(rand_data6) # function to write current lpg distirbutions to a csv
+    write_append_lpg_values(rand_data7) # function to write current lpg distirbutions to a csv
+    write_append_lpg_values(rand_data8) # function to write current lpg distirbutions to a csv
 
 def write_lpg_values(rand_data):
     
@@ -129,8 +144,8 @@ def write_lpg_values(rand_data):
 def write_append_lpg_values(rand_data):
     with open('./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv', 'a') as f:  # You will need 'wb' mode in Python 2.x
         w = csv.DictWriter(f, rand_data.keys())
-        for i in range(20): # this allows us to generate enough random data to match 10% of our total data(202592 rows)
-            w.writerow(rand_data)
+        for i in range(31): # this allows us to generate enough random data to match 10% of our total data(202592 rows)
+            w.writerow(rand_data) 
 #### REMOVE PUNCTUATION ####
 # 11/03/23 - This removes punctuation from the newly generated lpg values created in the guassian distribution function
 def remove_punc(string):

@@ -111,6 +111,8 @@ return (
               </CDropdownToggle>
             
               <CDropdownMenu className='dropdown-toggle'>
+              <CDropdownItem href="/NormalMissing" state={{data:data}}>Normal Distribution</CDropdownItem>
+              <CDropdownDivider />
               <CDropdownItem href="/KNN" state={{data:data}}>K-Nearest Neighbour</CDropdownItem>
               <CDropdownDivider />
                 <CDropdownItem href="/Interpolate" state={{data:data}}>Interpolation</CDropdownItem>

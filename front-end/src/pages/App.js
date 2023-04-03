@@ -13,6 +13,7 @@ import OutlierView from './Outliers';
 import HomeView from './Home';
 import KNNView from './KNN';
 import NormalDistributionView from './NormalDistribution';
+import NormalDistributionMissingView from './NormalDistributionMissing';
 
 
 
@@ -59,6 +60,7 @@ export default function App() {
           <Route path="/Outliers" Component={OutlierView}/>
           <Route path="/KNN" Component={KNNView}/>
           <Route path="/NormalDistribution" Component={NormalDistributionView}/>
+          <Route path="/NormalMissing" Component={NormalDistributionMissingView}/>
         </Routes>
         </div>
         

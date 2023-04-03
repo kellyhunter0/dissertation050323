@@ -45,7 +45,7 @@ export default function NormalDistributionView(props) {
           <a href="#normald" className='btn'>
             <button type="button"  className="btn btn-white mt-4">Get Started</button>
             </a>
-            <a href="/KNN" className='btn'>
+            <a href="/NormalMissing" className='btn'>
             <button type="button"  className="btn btn-white mt-4">Next Page</button>
             </a>
             <br/>
