@@ -79,11 +79,25 @@ def removeOutliers():
     dfresult = dataframe.dropna()
     dfresult.to_csv('./../front-end/public/datasets/outliers/outlierremoval.csv', index=False)  
     print("Dataset after outlier removal: \n\n", dfresult)
+    print(dataframe.info())
+    nullValues()
     return dataframe
 
-def roundValues():
-
-    return dataframe
+def nullValues():
+    i = 0
+    df = pd.read_csv('./../front-end/public/datasets/outliers/outlierremoval.csv')  
+    with open('./../front-end/public/datasets/outliers/outlierremoval.csv', 'r') as file:
+        csv_reader = csv.reader(file, delimiter = ',')
+        for row in csv_reader:
+            if i < (len(df)-1):
+                df.at[(i), 'lpg']  = np.nan
+                # dataframe.at[(j), 'lpg']  = np.nan
+                # dataframe.at[(k), 'smoke']  = np.nan
+                #dataframe.at[(i), 'carbon-monoxide'] =np.nan
+                i= i + random.randint(0,4)
+    print("Outliers removed and missing values applied\n", df)
+    df.to_csv('./../front-end/public/datasets/missing/outliersRemoval-missing.csv') # removed outliers and applied missing values so we can predict with each
+    return df
 
 
 # this will help when it comes to aggregating the data! - remove to json to have this working

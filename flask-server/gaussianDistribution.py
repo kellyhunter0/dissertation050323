@@ -1,8 +1,10 @@
 from numpy.random import normal
+import numpy as np
 import pandas as pd
 import csv
 import re
-
+from sklearn.metrics import mean_squared_error
+from sklearn import metrics
 
 # 12/03/23 need to add the rest of the columns from the original dataset with this, i also need to remove 20259 lpg rows from the original dataset and add the noise in to see what happens
 # I also need to adjust the mean in the guassian distribution function to the true value, this works for now but it needs changed
@@ -13,22 +15,29 @@ lpgcols = ['lpg']
 allcols = ['carbon-monoxide','humidity','smoke','lpg','temperature']
 concatCols = ['carbon-monoxide','humidity','smoke','temperature']
 # use the columns with the specified file name
-fulldata40lpgframe = pd.read_csv(FILE_NAME, usecols=allcols)
+fulldf = pd.read_csv(FILE_NAME, usecols=allcols)
+dfdf = pd.read_csv('./../front-end/public/datasets/outliers/outlierremoval.csv', usecols=allcols)
 
 # Convert values in csv to Series data
-lpg = pd.Series(fulldata40lpgframe['lpg']) 
-co = pd.Series(fulldata40lpgframe['carbon-monoxide'], name='carbon-monoxide') 
-humidity = pd.Series(fulldata40lpgframe['humidity'], name='humidity') 
-smoke = pd.Series(fulldata40lpgframe['smoke'], name='smoke') 
-temp = pd.Series(fulldata40lpgframe['temperature'], name='temperature') 
+lpg = pd.Series(fulldf['lpg']) 
+co = pd.Series(fulldf['carbon-monoxide'], name='carbon-monoxide') 
+humidity = pd.Series(fulldf['humidity'], name='humidity') 
+smoke = pd.Series(fulldf['smoke'], name='smoke') 
+temp = pd.Series(fulldf['temperature'], name='temperature') 
 
 # Note: 13/03/23 
 # mycsvfile.csv needs to be created dynamically. 
 # Currently it only reads the file  and doesn't creat it if it doesn't exist. Fix This!
 
+def mean_square_error(x, y):
+    print('Mean Absolute Error:', metrics.mean_absolute_error(x, y))  
+    print('Mean Squared Error:', metrics.mean_squared_error(x, y))  
+    print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(x, y)))
+
+
 def guassian_y_value():
     missing40 = pd.read_csv("./../front-end/public/datasets/missing/missingvalues.csv", usecols=allcols)
-    missing10 = pd.read_csv("./../front-end/public/datasets/missing/missingvalues.csv", usecols=lpgcols)
+    missingOutliers = pd.read_csv("./../front-end/public/datasets/missing/outliersRemoval-missing.csv", usecols=allcols)
     # lpg predicted value reads here! only 2001 rows so far
     data40lpg = pd.read_csv("./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv", usecols=lpgcols, nrows=80015) # 20259 is 10%, 80015 is roughly 40%
     alllpg = pd.read_csv("./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv", usecols=lpgcols) # 20259 is 10%, 80015 is roughly 40%
@@ -38,11 +47,18 @@ def guassian_y_value():
     mSeries40 = pd.Series(alllpg['lpg'])
     # write new lpg value to csv with the columns in half-removed.csv
     missing40['lpg'].fillna(mSeries40, inplace=True)
+    missingOutliers['lpg'].fillna(mSeries40, inplace=True)
     print(missing40['lpg'])
     print(missing40.isna().sum())
     missingFilledND = {"carbon-monoxide": missing40['carbon-monoxide'], "smoke":missing40['smoke'], "lpg":missing40['lpg']}
+    missingFilledOutliers = {"carbon-monoxide": missingOutliers['carbon-monoxide'], "smoke":missingOutliers['smoke'], "lpg":missingOutliers['lpg']}
     missingDF = pd.DataFrame(missingFilledND)
+    missingDFOutliers = pd.DataFrame(missingFilledOutliers)
     missingDF.to_csv("./../front-end/public/datasets/normal-distribution/missing-filled-nd.csv", index=False)
+    missingDFOutliers.to_csv("./../front-end/public/datasets/normal-distribution/missing-filled-nd-nooutliers.csv", index=False)
+    
+  
+    ## ADD NOISE
     data40['lpg'] = data40lpg['lpg']
     data10['lpg'] = data10lpg['lpg']
 
@@ -66,7 +82,40 @@ def guassian_y_value():
     df2.to_csv("./../front-end/public/datasets/normal-distribution/guassiandistrib-40.csv", index=False)
     df3.to_csv("./../front-end/public/datasets/normal-distribution/guassiandistrib-10.csv", index=False)
     
+def predictionScores_normalDistribution():
+    alllpg = pd.read_csv("./../front-end/public/datasets/normal-distribution/lpg-gd-values.csv", usecols=lpgcols) # 20259 is 10%, 80015 is roughly 40%
+    mSeries40 = pd.Series(alllpg['lpg'])
+    print("________________________________________________________________")
+    print("___________GD Prediction Scores - After Outlier Removal_________")
+    print("________________________________________________________________")
+    D = pd.read_csv("./../front-end/public/datasets/missing/outliersRemoval-missing.csv", usecols=allcols)
+    index_nan2 = D[D['lpg'].isna()].index
+    temp22 = dfdf['lpg']
+    nan_values2 = D[D['lpg'].isna()]
+    print("index_nan GD\n", index_nan2)
+    print("temp2 GD\n", temp22.iloc[index_nan2])
+    print("null values GD\n", nan_values2)   
+    D['lpg'].fillna(mSeries40, inplace=True)
 
+    df2 = pd.DataFrame({'Actual':dfdf['lpg'].iloc[index_nan2], 'Predicted': D['lpg'].iloc[index_nan2]})
+    print(df2)
+    mean_square_error(temp22.iloc[index_nan2], D['lpg'].iloc[index_nan2]) # actual vs predicted
+    
+    print("________________________________________________________________")
+    print("___________GD Prediction Scores - Pre-Outlier Removal___________")
+    print("________________________________________________________________")
+    m = pd.read_csv("./../front-end/public/datasets/missing/missingvalues.csv", usecols=allcols)
+    index_nan = m[m['lpg'].isna()].index
+    temp2 = fulldf['lpg']
+    nan_values = m[m['lpg'].isna()]
+    print("index_nan GD\n", index_nan)
+    print("temp2 GD\n", temp2.iloc[index_nan])
+    print("null values GD\n", nan_values)   
+    m['lpg'].fillna(mSeries40, inplace=True)
+    df3 = pd.DataFrame({'Actual':fulldf['lpg'].iloc[index_nan], 'Predicted': m['lpg'].iloc[index_nan]})
+    print(df3)
+    mean_square_error(temp2.iloc[index_nan], m['lpg'].iloc[index_nan]) # actual vs predicted
+    
 #### GUASSIAN DISTRIBUTION #####    
 # 08/03/23 - 09/03/23
 #  This needs work but is nearly there. 
