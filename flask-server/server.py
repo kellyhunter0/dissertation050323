@@ -14,11 +14,12 @@ from fileHandling import csvRead, csvColumnRename, reg_predict
 from flaskname import * # gets the flask app name function from py file
 #from sklearn.neighbors import LocalOutlierFactor
 from outlierRemoval import removeOutliers
-from gaussianDistribution import gaussianDistribution
-from KNearestNeighbor import optimize_k
+from gaussianDistribution import gaussianDistribution, predictionScores_normalDistribution
+from KNearestNeighbor import optimize_k, outlierRemovalPredict
 FILE_NAME = "./../front-end/public/datasets/original/iot_telemetry_data.csv"
 FILE_MISSING = "./../front-end/public/datasets/missing/missingvalues.csv"
 FILE_HALFED = "./../front-end/public/datasets/original/half-removed.csv"
+FILE_OUTLIERS = "./../front-end/public/datasets/outliers/outlierremoval.csv"
  
 # identify the columns in the csv
 columns = ["ts","device","co","humidity","light","lpg","motion","smoke","temp"]
@@ -27,6 +28,7 @@ columnsM = ["carbon-monoxide","humidity","lpg","smoke","temperature"]
 dataframe = pd.read_csv(FILE_NAME, usecols=columns)
 df = pd.read_csv(FILE_MISSING, usecols=columnsM )
 dfhalf = pd.read_csv(FILE_HALFED, usecols=columnsM )
+outliersDF = pd.read_csv(FILE_OUTLIERS, usecols=columnsM )
 
 # Set flask name, this is standard
 app = flaskNameValue()
@@ -42,13 +44,52 @@ reg_predict() # need to work on this one
 
 # Identify and remove any outliers
 removeOutliers() # this works
+missingDF = pd.read_csv("./../front-end/public/datasets/normal-distribution/missing-filled-nd.csv")
+plt.hist(missingDF['lpg'])
+plt.xlabel('lpg (ppm (%))') 
+plt.ylabel('count') 
+plt.title("Right Skewed Normal Distribution - Liquified Petrolium Gas (Guassian Distribution)")
+plt.show()
 
     # Use Guassian Distribution to generate y values - 
 # this is to affect the wuality of the visualisation and the linear regression line of best fit
 gaussianDistribution() # this also works
+predictionScores_normalDistribution()
 
 k_errors = optimize_k(data=dfhalf, target='lpg')
- 
+k_errors2 =  outlierRemovalPredict(data=outliersDF, target='lpg')
+missingDFKNN = pd.read_csv("./../front-end/public/datasets/missing/missing-filled-knn.csv")
+missingDFKNN_outliers = pd.read_csv("./../front-end/public/datasets/missing/missing-filled-knn-noOutliers.csv")
+
+plt.hist(outliersDF['lpg'])
+plt.xlabel('lpg (ppm (%))') 
+plt.ylabel('count') 
+plt.title("Right Skewed Normal Distribution - Liquified Petrolium Gas (original data - outlier removal)")
+plt.show() 
+
+plt.hist(missingDFKNN['lpg'])
+plt.xlabel('lpg (ppm (%))') 
+plt.ylabel('count') 
+plt.title("Right Skewed Normal Distribution - Liquified Petrolium Gas (KNN predictions- before outlier removal)")
+plt.show() 
+
+plt.hist(missingDFKNN_outliers['lpg'])
+plt.xlabel('lpg (ppm (%))') 
+plt.ylabel('count') 
+plt.title("Right Skewed Normal Distribution - Liquified Petrolium Gas (KNN - No outliers)")
+plt.show() 
+
+plt.hist(missingDFKNN_outliers['carbon-monoxide'])
+plt.xlabel('carbon monoxide (ppm (%))') 
+plt.ylabel('count') 
+plt.title("Right Skewed Normal Distribution - Carbon Monoxide (no outliers)")
+plt.show() 
+
+plt.hist(missingDFKNN_outliers['smoke'])
+plt.xlabel('smoke (ppm (%))') 
+plt.ylabel('count') 
+plt.title("Right Skewed Normal Distribution - Smoke (no outliers)")
+plt.show() 
 
 # API routes for data. 
 # This can be used when machine learning (lin reg) has been implemented.
