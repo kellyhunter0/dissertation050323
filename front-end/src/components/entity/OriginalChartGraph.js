@@ -77,14 +77,20 @@ export function OriginalDataChart(headerRef){
         <div className="col-lg-8" style={{marginLeft:'auto', marginRight:'auto'}}>
         <div className="card" style={{backgroundColor:"rgba(95, 95, 95, 0.1)", margin:'0, auto'}}>
         <div className="card-header">
-          header
+          Dataset before any alterations
           </div>
         <div className="card-body">
-          <div className="col" ref={headerRef} style={{ marginLeft:'auto', marginRight:'auto'}}>
+          <div className="col" style={{ marginLeft:'auto', marginRight:'auto'}}>
           <p>
-            No Missing Values <br/> File Location:<code>./front-end/src/OriginalChartGraph.js</code> and save to reload. 
+            <br></br>
+            This chart is <strong>Scatterplot</strong>, which is a common correlation chart function used by Data Scientists to test how much things depend on one another. That is, it tests the strength of the relationship between two variables. In the case of this dataset, we model Liquified Pertroleum Gas (lpg), Carbon Monoxide (co) and Smoke which are all measured in ppm. This stands for parts per million, and this is a measurement for the mass of a chemical or contaminate per unit of volume of water. So, this essentially measures it in the air and records the amount in ppm.
+            <br></br>
+            <br></br>
+            
+          <div className="col" ref={headerRef} style={{ marginLeft:'auto', marginRight:'auto'}}></div>
+
+            When two variables are said to have a relationship, this means they are correlated either negatively or positively. In the case of this data, we can see that this is a positive linear relationship as the chart direction points upward and to the right. So what does this mean? Well, it means that as Liquified Pertroleum Gas increases, so do Smoke and Carbon Monoxide. 
           </p>
-          <p>The dataset is reduced by half initally and plotted to identify a relationship. </p>
           </div>
         </div>
         </div>

@@ -4,7 +4,7 @@ import {MissingDataChart} from "../components/entity/MissingChartGraph";
 import React from 'react'; 
 import { Header } from '../layout/Header';
 import { useLocation } from 'react-router';
-
+import {Footer} from '../layout/Footer'
 
 
 export default function MissingView(props) { 
@@ -71,6 +71,10 @@ export default function MissingView(props) {
             <button type="button"  className="btn btn-white mt-4">Next Page</button>
             </a>
 </div>
+
+<div className='col-lg-12'>
+        <Footer></Footer>
+        </div>
     </>
 
 

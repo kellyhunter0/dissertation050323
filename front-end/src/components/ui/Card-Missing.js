@@ -21,7 +21,7 @@ return (
   className='card-img img-fluid'
 />
 <CardContent>
-  <Typography gutterBottom variant="h5" component="div">
+  <Typography gutterBottom variant="h4" component="div">
     Missing Data
   </Typography>
   <Typography variant="body2" color="text.secondary" style={{fontSize:'16px'}}>

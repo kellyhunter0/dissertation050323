@@ -3,7 +3,7 @@ import {OriginalDataChart} from "../components/entity/OriginalChartGraph";
 import React from 'react'; 
 import {InterpolationChart} from '../components/entity/InterpolationChart';
 import { useLocation } from 'react-router';
-
+import {Footer} from '../layout/Footer'
 
 export default function OriginalView(props) { 
   const location = useLocation()
@@ -64,6 +64,10 @@ export default function OriginalView(props) {
             <button type="button"  className="btn btn-white mt-4">Next Page</button>
             </a>
 </div>
+
+<div className='col-lg-12'>
+        <Footer></Footer>
+        </div>
     </>
 
 

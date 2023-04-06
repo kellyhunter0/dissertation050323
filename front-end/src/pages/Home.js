@@ -8,6 +8,7 @@ import { CardKNN } from '../components/ui/Card-KNN';
 import { CardLinearR } from '../components/ui/Card-LR';
 import { CardMissing } from '../components/ui/Card-Missing';
 import { CardNormalD } from '../components/ui/Card-NormalD'
+import { CardNormalDMissing } from '../components/ui/Card-NormalDMissing'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -90,6 +91,9 @@ export default function HomeView(props) {
       </Grid>
       <Grid xs="auto">
         <Item><CardKNN/></Item>
+      </Grid>
+      <Grid xs="auto">
+        <Item><CardNormalDMissing/></Item>
       </Grid>
       <Grid xs="auto">
         <Item><CardInterp/></Item>

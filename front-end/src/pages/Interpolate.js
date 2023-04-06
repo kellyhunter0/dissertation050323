@@ -1,9 +1,10 @@
 import '../assets/css/App.css';
 import {OriginalDataChart} from "../components/entity/OriginalChartGraph";
+import { MissingDataChart } from '../components/entity/MissingChartGraph';
 import React from 'react'; 
 import {InterpolationChart} from '../components/entity/InterpolationChart';
 import { useLocation } from 'react-router';
-
+import {Footer} from '../layout/Footer';
 
 export default function InterpolationView(props) { 
   const location = useLocation()
@@ -60,12 +61,16 @@ export default function InterpolationView(props) {
   </header>
   <div className="Page-Header align-items-center">
       <h1 id='interp'>{data?data.pageName:"Interpolate"}</h1>
-        <OriginalDataChart></OriginalDataChart>
+        <MissingDataChart/>
         <InterpolationChart></InterpolationChart>
         <a href="/LinearReg" className='btn'>
             <button type="button"  className="btn btn-white mt-4">Next Page</button>
             </a>
 </div>
+
+<div className='col-lg-12'>
+        <Footer></Footer>
+        </div>
     </>
 
 

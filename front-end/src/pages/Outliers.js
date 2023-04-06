@@ -3,7 +3,7 @@ import {OriginalDataChart} from "../components/entity/OriginalChartGraph";
 import React from 'react'; 
 import { OutlierDataChart } from '../components/entity/OutlierChartGraph';
 import { useLocation } from 'react-router';
-
+import {Footer} from '../layout/Footer'
 
 
 
@@ -30,10 +30,7 @@ export default function OutlierView(props) {
 
 <div className="container">
   <div className="row">
-
-    
     <div className="col-lg-7 col-md-6 d-flex  flex-column header-mobile" style={{marginTop:"60px", marginRight:"30px"}}>
-      
       <h1 className="text-white mb-4 justify-content-left" id="name-text"  value='pageName'>Outlier Data</h1>
       <p className="text-white opacity-8 lead align-items-left header-p">This is a free online tool that aims to help improve data literacy and give an introduction to Data Analysis and Data Science. By talking through the different charts and explaining how to read the <em>x</em> and <em>y</em> axis, you will gain an understanding on how to interpret data. The original Dataset is an IOT Envoironmental Sensor Telemetry dataset that contains over 400,000 rows and 9 columns.   </p>
       <div className="buttons">
@@ -59,22 +56,18 @@ export default function OutlierView(props) {
 
 </div>
 </header>
-
-    {/* {data?data.pageName:"Outliers"}  - pass data between pages using react-router location*/}
-        {/* {document.getElementById('name-text').innerText = "Outliers"}
-        */}
         <div className="Page-Header align-items-center">
         <h1 id='outliers'>{data?data.pageName:"Outliers"}</h1>
-
-        <div className='container-fluid'>
-
-        <OriginalDataChart></OriginalDataChart>
-        <OutlierDataChart/>
+          <OriginalDataChart></OriginalDataChart>
+          <OutlierDataChart></OutlierDataChart>
         <a href="/NormalDistribution" className='btn'>
             <button type="button"  className="btn btn-white mt-4">Next Page</button>
-            </a>
-</div>
-</div>
+        </a>
+        </div>
+
+        <div className='col-lg-12'>
+        <Footer></Footer>
+        </div>
     </>
 
 

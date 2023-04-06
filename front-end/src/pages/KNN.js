@@ -1,9 +1,10 @@
 import '../assets/css/App.css';
 import {OriginalDataChart} from "../components/entity/OriginalChartGraph";
+import { MissingDataChart } from '../components/entity/MissingChartGraph';
 import React from 'react'; 
 import {KNNChart} from '../components/entity/KNNChart';
 import { useLocation } from 'react-router';
-
+import {Footer} from '../layout/Footer'
 
 export default function KNNView(props) { 
   const location = useLocation()
@@ -60,13 +61,15 @@ export default function KNNView(props) {
         {/* {document.getElementById('name-text').innerText = "KNN"} */}
         <div className="Page-Header align-items-center">
         <h1 id='knn'>{data?data.pageName:"KNN Chart"}</h1>
-        <OriginalDataChart></OriginalDataChart>
+        <MissingDataChart/>
         <KNNChart/>
         <a href="/Interpolate" className='btn'>
             <button type="button"  className="btn btn-white mt-4">Next Page</button>
             </a>
         </div>
-
+        <div className='col-lg-12'>
+        <Footer></Footer>
+        </div>
     </>
 
 

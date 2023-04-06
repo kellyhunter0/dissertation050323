@@ -1,9 +1,10 @@
 import '../assets/css/App.css';
 import {OriginalDataChart} from "../components/entity/OriginalChartGraph";
+import { MissingDataChart } from '../components/entity/MissingChartGraph';
 import React from 'react'; 
 import { LinRegChartMissing } from '../components/entity/LinRegChart';
 import { useLocation } from 'react-router';
-
+import {Footer} from '../layout/Footer'
 
 export default function LinearView(props) { 
   const location = useLocation()
@@ -35,13 +36,13 @@ export default function LinearView(props) {
       <h1 className="text-white mb-4 justify-content-left" id="name-text"  value='pageName'>Data Prediction<br></br>Linear Regression</h1>
       <p className="text-white opacity-8 lead align-items-left header-p">This is a free online tool that aims to help improve data literacy and give an introduction to Data Analysis and Data Science. By talking through the different charts and explaining how to read the <em>x</em> and <em>y</em> axis, you will gain an understanding on how to interpret data. The original Dataset is an IOT Envoironmental Sensor Telemetry dataset that contains over 400,000 rows and 9 columns.   </p>
       <div className="buttons">
-      <div class="d-grid gap-2 d-md-block">
-      <a href="#home" className='btn'>
-        <button type="button"  className="btn btn-white ">Start</button>
-        </a>
-        <a href="/Home" className='btn'>
-        <button type="button"  className="btn btn-white ">Home</button>
-        </a>
+      <div className="btn-group btn-group" data-toggle="buttons">
+        <label className="btn btn-secondary text-white">
+          <a href="#linearr" className='text-white'>Start</a>
+        </label>
+        <label className="btn btn-white text-white">
+          <a href="/Home" className='text-dark'>Home</a>
+        </label>
       </div>
         <br/>
         <br/>
@@ -60,12 +61,16 @@ export default function LinearView(props) {
         {/* {document.getElementById('name-text').innerText = "Linear Regression"} */}
         <div className="Page-Header align-items-center">
         <h1 id='linearr'>{data?data.pageName:"Linear Regression"}</h1>
-        <OriginalDataChart></OriginalDataChart>
+        <MissingDataChart/>
         <LinRegChartMissing></LinRegChartMissing>
         <a href="/Home" className='btn'>
-            <button type="button"  className="btn btn-white mt-4">Next Page</button>
+            <button type="button"  className="btn btn-white mt-4">Home</button>
             </a>
 </div>
+
+<div className='col-lg-12'>
+        <Footer></Footer>
+        </div>
     </>
 
 

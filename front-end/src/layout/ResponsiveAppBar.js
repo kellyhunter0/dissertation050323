@@ -99,7 +99,7 @@ return (
               <CNavLink href="/Outliers" state={{data:data}} >Outliers</CNavLink>
             </CNavItem>
             <CNavItem>
-              <CNavLink href="/NormalDistribution" state={{data:data}} >Normal Distribution</CNavLink>
+              <CNavLink href="/NormalDistribution" state={{data:data}} >Noisy Data</CNavLink>
             </CNavItem>
             <CDropdown variant="nav-item" popper={false} >
               

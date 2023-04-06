@@ -151,27 +151,33 @@ export function OutlierDataChart(headerRef){
         <br></br>
 
 
-        <div className="col-lg-12">
+        <div className="col-lg-8" style={{marginLeft:'auto', marginRight:'auto'}}>
         <div className="card" style={{backgroundColor:"rgba(95, 95, 95, 0.1)", margin:'auto'}}>
         <div className="card-header">
-          header
+          Outlier Removal
           </div>
-        <div className="card-body"> dadadad</div>
+        <div className="card-body"> 
       {/* <div className="col" ref={ref}>
         <p>
           x: LPG, y: CO - After Outlier Removal <br/> File Location:<code>./front-end/src/OutlierChartGraph.js</code> and save to reload. 
         </p>
         <p>Outliers have been identified using IQR calculations to identify upper and lower percentiles. These values has been noted as NaN</p>
         </div> */}
-        <div className="col" ref={headerRef}>
+        <div className="col"  style={{ marginLeft:'auto', marginRight:'auto'}}>
         <p>
-        x: CO, y: LPG - After Outlier Removal <br/> File Location:<code>./front-end/src/OutlierChartGraph.js</code> and save to reload. 
+       Outliers are values that lie out-with the normal expected range. This means that these values are considered to be a large distance from other values in the dataset. As outliers are extreme values, in some cases this can affect analysis and how charts display. 
         </p>
-        <p>The above outliers have been removed from the dataset.</p>
+        <p>More formally, there is a way of measuring the range of values in data, and this is known as the Interquartile Range, or IQR for short. This essentially means we can look at the upper IQR of 75% and over for values that are too high, likewise we can look at the lower IQR of 25% and under for values that are too low.</p>
+        <div className="col" ref={headerRef} style={{ marginLeft:'auto', marginRight:'auto'}}></div>
+
+        <p>In the above chart, we can see that the visual output has changed quite dramatically. Outliers can alter the look of a chart as the upper and lower values tend to make Scatterplots trail off. How does the above change and explanation affect your understanding of the visualisation and outliers? </p>
 
         </div>
         </div>
         </div>
+        </div>
+
+
       </>
 
 

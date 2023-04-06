@@ -94,14 +94,26 @@ export const MissingDataChart = () => {
     return (
       <>
 
-  <div className="row">
-    <div className="col" ref={ref}>
-        <p>
-          Removal of Created Missing Values <br/> File Location:<code>./front-end/src/MissingChartGraph.js</code> and save to reload. 
+<div className="col-lg-8" style={{marginLeft:'auto', marginRight:'auto'}}>
+        <div className="card" style={{backgroundColor:"rgba(95, 95, 95, 0.1)", margin:'0, auto'}}>
+        <div className="card-header">
+          Missing Values
+          </div>
+        <div className="card-body">
+          <div className="col"  style={{ marginLeft:'auto', marginRight:'auto'}}>
+          <p>
+          Missing values have been created and removed from the original chart. This is to see how much missing data affects charts. As we will be using prediction methods to fill these in later, we can safely remove missing values and save this to another file for when imputation happens later. <br></br>
+          <div className="col" ref={ref} style={{ marginLeft:'auto', marginRight:'auto'}}></div>
+
+          <br></br>
+          <br></br>
+          Based on the changes, do you notice a difference in the chart? It doesn't look like much, but over 80,000 rows were removed because there were missing values. Even though a lot of data has been removed, this does not appear to affect the Scatterplot much visually.
+          <br></br>
         </p>
-        <p>Values are randomly assigned as NaN and then removed from the dataset to compare with the first chart.</p>
+        <p>It will be interesting to see how the charts change visually when it comes to predicting the missing values.</p>
 
       </div>
+      </div></div>
       {/* <div className="col" ref={ref2}>
         <p>
           Axis Values Flipped Around<br/> File Location:<code>./front-end/src/MissingChartGraph.js</code> and save to reload. 

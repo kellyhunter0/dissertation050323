@@ -11,14 +11,14 @@ export const KNNChart = () => {
     const [knnpredict, setKNNpredict] = useState();
 
     useEffect(() => {
-        d3.csv("/datasets/missing/missing-filled-knn.csv", d3.autoType).then(setKNN);
+        d3.csv("/datasets/knearest/missing-filled-knn.csv", d3.autoType).then(setKNN);
       }, []);
 
       useEffect(() => {
-        d3.csv("/datasets/missing/knn-predict-colpg.csv", d3.autoType).then(setKNNpredict);
+        d3.csv("/datasets/knearest/missing-filled-knn-noOutliers.csv", d3.autoType).then(setKNNpredict); // outliers removed, missing values applied and predicted
       }, []);
     
-      // Missing Data chart
+      // Outliers present
       useEffect(() => {
         if(knn === undefined) return;
         const chart2 = Plot.plot({
@@ -66,26 +66,41 @@ export const KNNChart = () => {
       }, [knn])
 
 
-    // Missing Data chart
+    // Outliers removed, missing values applied at random, then approximated using KN
     useEffect(() => {
       if(knnpredict === undefined) return;
       const chart2 = Plot.plot({
         
         style: {
-          background: "transparent",
-          
+          background: "white",
+          padding: '20px',
+          color: 'black',
+          marginLeft: "auto",
+          marginBottom: "0",
+          marginRight: "auto",
+          marginTop: "0",
+          textAlign: "center"
         },
         y: {
-          grid: true
+          grid: true,
+          label: "lpg (ppm (%)) ↑"
         },
         x: {
-          grid:true
+          label: "carbon monoxide (ppm (%)) →"
         },
-
+        fill: {
+          textAlign: "center",
+          marginLeft: "auto",
+          marginBottom: "0",
+          marginRight: "auto",
+        },
         color: {
           type: "diverging",
-          scheme: "burd",
-          legend:true
+          scheme: "buylrd",
+          legend: true,
+          label: "smoke (ppm (%)) →",
+          
+          
         },
         marks: [
           Plot.ruleY([0]),
@@ -104,11 +119,11 @@ return (
     <p>
       Replaced missing values with KNN<br/> File Location:<code>./front-end/src/KNNChart.js</code> and save to reload. 
     </p>
-    <p>All missing values are predicted using KNN and plotted to show the difference</p>
+    <p>All missing values are predicted using KNN and plotted with outliers</p>
     
   </div>
       <div className="col-lg-6" ref={ref3}>
-      <p>All LPG values are predicted using KNN and plotted with CO to show the difference</p>
+      <p>Outliers removed, missing values applied, and then predicted using K-Nearest Neighbour.</p>
       
     </div>
     </>

@@ -1,11 +1,12 @@
 import '../assets/css/App.css';
 import {OriginalDataChart} from "../components/entity/OriginalChartGraph";
+import { MissingDataChart } from '../components/entity/MissingChartGraph';
 import React from 'react'; 
 import {InterpolationChart} from '../components/entity/InterpolationChart';
 import { NormalDistributionChart } from '../components/entity/NormalDistributionChart';
 import { useLocation } from 'react-router';
 import { GuassianDistribChart } from '../components/entity/MissingNDChart';
-
+import {Footer} from '../layout/Footer'
 
 export default function NormalDistributionMissingView(props) { 
   const location = useLocation()
@@ -62,11 +63,15 @@ export default function NormalDistributionMissingView(props) {
         {/* {document.getElementById('name-text').innerText = "Normal Distribution"} */}
         <div className="Page-Header align-items-center">
       <h1 id='normald'>{data?data.pageName:"Normal Distribution"}</h1>
-        <OriginalDataChart></OriginalDataChart>
+        <MissingDataChart/>
         
         
         <GuassianDistribChart/>
 </div>
+
+<div className='col-lg-12'>
+        <Footer></Footer>
+        </div>
     </>
 
 

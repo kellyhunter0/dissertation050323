@@ -20,8 +20,11 @@ return (
   className='card-img img-fluid'
 />
 <CardContent>
-  <Typography gutterBottom variant="h5" component="div">
+<Typography gutterBottom variant="h4" component="div">
+    Data Prediction
+  <Typography gutterBottom variant="h6" component="div">
     Interpolated Data
+  </Typography>
   </Typography>
   <Typography variant="body2" color="text.secondary" style={{fontSize:'16px'}}>
     The original data is over 200,000 lines long. Exploratory data analysis is performed to identify any relationships between data points. 
