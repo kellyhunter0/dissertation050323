@@ -34,7 +34,7 @@ export default function KNNView(props) {
     <div className="col-lg-7 col-md-6 d-flex  flex-column header-mobile" style={{marginTop:"60px", marginRight:"30px"}}>
       
       <h1 className="text-white mb-4 justify-content-left" id="name-text"  value='pageName'>Data Prediction<br></br>K-Nearest Neighbour</h1>
-      <p className="text-white opacity-8 lead align-items-left header-p">This is a free online tool that aims to help improve data literacy and give an introduction to Data Analysis and Data Science. By talking through the different charts and explaining how to read the <em>x</em> and <em>y</em> axis, you will gain an understanding on how to interpret data. The original Dataset is an IOT Envoironmental Sensor Telemetry dataset that contains over 400,000 rows and 9 columns.   </p>
+      <p className="text-white opacity-8 lead align-items-left header-p">    K-Nearest Neighbour is a way of estimating values by looking for the value it's closest to based off the number of neighbours its nearest to. KNN is used to predict missing values where there are outliers present, and also to predict missing values where the outliers have been removed.   </p>
       <div className="buttons">
       <div className="btn-group btn-group" data-toggle="buttons">
         <label className="btn btn-secondary text-white">

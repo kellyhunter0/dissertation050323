@@ -22,6 +22,7 @@ lr = LinearRegression()
 columns = ["ts","device","co","humidity","light","lpg","motion","smoke","temp"]
  #carbon-monoxide,humidity,lpg,smoke,temperature
 completeColumns = ['date','carbon-monoxide', 'humidity', 'lpg', 'smoke', 'temperature']
+interpCols = ['carbon-monoxide', 'humidity', 'lpg', 'smoke', 'temperature']
 # use the columns with the specified file name
 dataframe = pd.read_csv(FILE_NAME, usecols=columns)
 complete = pd.read_csv(FILE_COMPLETE, usecols=completeColumns)
@@ -56,23 +57,23 @@ def csvColumnRename():
     dataframe.to_csv("./../front-end/public/datasets/original/half-removed.csv", index=False)
     print(dataframe.info())
     print(dataframe.describe())
-    plt.hist(dataframe['lpg'])
-    plt.xlabel('lpg (ppm (%))') 
-    plt.ylabel('count') 
-    plt.title("Right Skewed Normal Distribution - Liquified Petrolium Gas (original data)")
-    plt.show()
+    # plt.hist(dataframe['lpg'])
+    # plt.xlabel('lpg (ppm (%))') 
+    # plt.ylabel('count') 
+    # plt.title("Right Skewed Normal Distribution - Liquified Petrolium Gas (original data)")
+    # plt.show()
     
-    plt.hist(dataframe['carbon-monoxide'])
-    plt.xlabel('carbon monoxide (ppm (%))') 
-    plt.ylabel('count') 
-    plt.title("Right Skewed Normal Distribution - Carbon Monoxide (original data)")
-    plt.show()
+    # plt.hist(dataframe['carbon-monoxide'])
+    # plt.xlabel('carbon monoxide (ppm (%))') 
+    # plt.ylabel('count') 
+    # plt.title("Right Skewed Normal Distribution - Carbon Monoxide (original data)")
+    # plt.show()
     
-    plt.hist(dataframe['smoke'])
-    plt.xlabel('smoke (ppm (%))') 
-    plt.ylabel('count') 
-    plt.title("Right Skewed Normal Distribution - Smoke (original data)")
-    plt.show()
+    # plt.hist(dataframe['smoke'])
+    # plt.xlabel('smoke (ppm (%))') 
+    # plt.ylabel('count') 
+    # plt.title("Right Skewed Normal Distribution - Smoke (original data)")
+    # plt.show()
     
     
    
@@ -113,11 +114,11 @@ def missingData():
     print("\n_________________________________________")
     print("\n_________Removed Missing Values__________")
     print("Missing Values Removed:\n", dfresult)
-    plt.hist(dfresult['lpg'])
-    plt.xlabel('lpg (ppm (%))') 
-    plt.ylabel('count') 
-    plt.title("Right Skewed Normal Distribution - Liquified Petrolium Gas (missing data)")
-    plt.show()
+    # plt.hist(dfresult['lpg'])
+    # plt.xlabel('lpg (ppm (%))') 
+    # plt.ylabel('count') 
+    # plt.title("Right Skewed Normal Distribution - Liquified Petrolium Gas (missing data)")
+    # plt.show()
     
     dfresult.to_csv('./../front-end/public/datasets/missing/missingremoved.csv', index=False)  
     return dataframe 
@@ -147,7 +148,10 @@ def mean_square_error(x, y):
 
 def interpolated_values():
     print("\n_________Interpolated Predictions____________")
+    missing = pd.read_csv('./../front-end/public/datasets/missing/missingvalues.csv', usecols=interpCols)
     temp = pd.read_csv('./../front-end/public/datasets/original/half-removed.csv', usecols=completeColumns)
+    missingOutliersRemoved = pd.read_csv('./../front-end/public/datasets/missing/outliersRemoval-missing.csv', usecols=interpCols)
+    tempOutliers = pd.read_csv('./../front-end/public/datasets/outliers/outlierremoval.csv', usecols=interpCols)
     index_nan = dataframe[dataframe['lpg'].isna()].index
     missingValues = dataframe[dataframe['lpg'].isna()]
     temp2 = temp['lpg']
@@ -155,23 +159,63 @@ def interpolated_values():
     print("index_nan\n", index_nan)
     print("temp2\n", temp2.iloc[index_nan])
     print("null values interpolation\n", nan_values)   
-    dataframe['lpg'].interpolate( method='piecewise_polynomial', inplace=True, limit_direction="both") 
-    dataframe['lpg'].interpolate( method='linear', inplace=True, limit_direction="both") 
-    print(dataframe['lpg'])
-    dataframe.drop(['date'], axis=1)
-    dataframe.to_csv('./../front-end/public/datasets/interpolation/missing-filled-interpolate.csv')
-    drop = dataframe.drop(['date'], axis=1)
-    print("Predicted values (interpolate, method='linear'): \n", drop)
-    mean_square_error(temp2.iloc[index_nan], drop['lpg'].iloc[index_nan]) # actual vs predicted
-    x = dataframe['carbon-monoxide'].values.reshape(-1,1)
-    y = drop['lpg'].values.reshape(-1,1)
+    
+    a = pd.Series(missing['lpg'])
+    a.interpolate( method='quadratic', inplace=True, limit_direction="both", limit_area='inside') 
+    a.interpolate( method='linear', inplace=True, limit_direction="both") 
+    
+    missing['lpg'] = a.values
+    missing['lpg'].fillna(method='bfill', inplace=True)
+    missing = missing.sort_values(by='lpg', ascending=True) 
+    print("sorted\n",missing)
+    print("missing filled - outliers present\n",missing['lpg'])
+    missing.to_csv('./../front-end/public/datasets/interpolation/missing-filled-interpolate-outliers.csv')
+    
+   
+
+    index_nan2 = missingOutliersRemoved[missingOutliersRemoved['lpg'].isna()].index
+    missingValues2 = missingOutliersRemoved[missingOutliersRemoved['lpg'].isna()]
+    temp22 = tempOutliers['lpg']
+    print("temp outliers\n", tempOutliers)
+    nan_values2 = missingOutliersRemoved[missingOutliersRemoved['lpg'].isna()]
+    v = pd.Series(missingOutliersRemoved['lpg'])
+    v.interpolate( method='quadratic', inplace=True, limit_direction="both", limit_area='inside') 
+    v.interpolate( method='linear', inplace=True, limit_direction="both") 
+    missingOutliersRemoved['lpg'] = v.values
+    print("missing filled\n",missingOutliersRemoved['lpg'])
+    missingOutliersRemoved.to_csv('./../front-end/public/datasets/interpolation/missing-filled-interpolate-nooutliers.csv')
+    
+    print("Predicted values (outliers removed) (interpolate, method='cubic'): \n", missing)
+
+    x = missing['carbon-monoxide'].values.reshape(-1,1)
+    y = missing['lpg'].values.reshape(-1,1)
     # This wont parse datetime values, so i need to find a way that only targets the numerical data in the whole dataset, otherwise this will throw some really funky errors 
     # this is kind of fixed - all i had to do is drop the date value, and now i need to convert categorical values into numerical codes 
     # finish predicting the values 
     print("\n_____________________________________________")
-    print("\n___LinReg Calculations: Interpolated Values__")
+    print("\n___LinReg Calculations: Interpolated Values (pre-outlier removal)__")
     CallLinearReg(x,y) # this calls the function to get the intercept and coefficient after the data has been altered
-    nd_charts()
+    mean_square_error(temp2.iloc[index_nan], missing['lpg'].iloc[index_nan]) # actual vs predicted
+    
+    x4 = missingOutliersRemoved['carbon-monoxide'].values.reshape(-1,1)
+    y4 = missingOutliersRemoved['lpg'].values.reshape(-1,1)
+
+    print("\n_____________________________________________")
+    print("\n___LinReg Calculations: Interpolated Values (post-outlier removal)__")
+    CallLinearReg(x4,y4) # this calls the function to get the intercept and coefficient after the data has been altered
+    mean_square_error(temp22.iloc[index_nan2], missingOutliersRemoved['lpg'].iloc[index_nan2]) # actual vs predicted
+    # nd_charts()
+    
+    
+def plot(x,y):
+    f = interp1d(x, y)
+    f2 = interp1d(x, y, kind='cubic')
+
+    xnew = np.linspace(1, len(x) , endpoint=True)
+    plt.figure(figsize=(20,5))
+    plt.plot(x, y, 'o', xnew, f(xnew), '-', xnew, f2(xnew), '--')
+    plt.legend(['data', 'linear', 'cubic'], loc='best')
+    plt.show()
     
 def nd_charts():
     plt.hist(dataframe['lpg'])
@@ -182,19 +226,27 @@ def nd_charts():
     
 
 def lr_values(): 
+    t = []
     print("\n_________Linear Regression Predictions____________")
     dataf = pd.read_csv('./../front-end/public/datasets/original/half-removed.csv', nrows=202592)  
     outliersFull = pd.read_csv('./../front-end/public/datasets/outliers/outlierremoval.csv')  
-    date = dataframe.drop("date", axis=1) # drop date as it will flag an error, lr only accepts float values
+    date = dataf.drop("date", axis=1) # drop date as it will flag an error, lr only accepts float values
     x = date.drop("lpg", axis=1) # drop this as this is the thing we will use to predict lpg
     x = x.values # assign the values of all the data except lpg
     y = date['lpg'].values # grab the thing we want to predict and its assigned values
-    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=202591, random_state=0) # train the model
+    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.4, random_state=42) # train the model
     lr.fit(x, y) # fit the model
     y_pred = lr.predict(X_test) # predict the model
-    ydf = pd.DataFrame({'lpg':y_pred.flatten()})
+    y_pred1 = lr.predict(X_test) # predict the model
+    y_pred2 = lr.predict(X_test) # predict the model
+    y_pred3 = lr.predict(X_test) # predict the model
+    t.append(y_pred)
+    t.append(y_pred1)
+    t.append(y_pred2)
+    t.append(y_pred3)
+    ydf = pd.DataFrame({'lpg':np.array(t).flatten()})
     ydfSeries = pd.Series(ydf['lpg'], name='lpg')
-    
+     
     # fill in missing values
     missingvalues = pd.read_csv('./../front-end/public/datasets/missing/missingvalues.csv', nrows=202592)
     index_nan = missingvalues[missingvalues['lpg'].isna()].index

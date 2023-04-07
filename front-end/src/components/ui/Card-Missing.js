@@ -25,7 +25,7 @@ return (
     Missing Data
   </Typography>
   <Typography variant="body2" color="text.secondary" style={{fontSize:'16px'}}>
-   Halving the data did not affect the look of the chart,(need to check coefficient) so the investigation now centers around creating missing values so we can compare methods of dealing with missing data later on. Leaving missing data in the dataset is bad practice in data science so there needs to be methods of dealing with this.
+   Halfing the data did not affect the look of the chart, so the investigation now centers around creating missing values so we can compare methods of dealing with missing data later on. Leaving missing data in the dataset is bad practice in data science so there needs to be methods of dealing with this.
   </Typography>
 </CardContent>
 <CardActions>

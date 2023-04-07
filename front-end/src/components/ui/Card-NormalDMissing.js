@@ -22,13 +22,13 @@ return (
 <CardContent>
 <Typography gutterBottom variant="h4" component="div">
     Data Prediction
-  <Typography gutterBottom variant="h6" component="div">
-    Normal Distribution Data
-  </Typography>
+
+    <p>
+    Normal Distribution</p>
   </Typography>
 
   <Typography variant="body2" color="text.secondary" style={{fontSize:'16px'}}>
-    The original data is over 200,000 lines long. Exploratory data analysis is performed to identify any relationships between data points. 
+Normal Distributions are a type probability distribution, this one in particular generates data based on the frequency of data nearest the mean. This method will be used to predict missing values where there are outliers present, and also to predict missing values where the outliers have been removed 
   </Typography>
 </CardContent>
 <CardActions>

@@ -59,6 +59,8 @@ def optimize_k(data, target):
     ydf = pd.DataFrame({'lpg':np.array(preds3).flatten()})
     ydf.to_csv('./../front-end/public/datasets/knearest/knn-predictions.csv', index=False)
     print(ydf) 
+    print("RMSE for first model: \n", errors) 
+    print("RMSE for second model: \n", errors2) 
 
     ydfSeries = pd.Series(ydf['lpg'], name='lpg')
     missingvalues = pd.read_csv('./../front-end/public/datasets/missing/missingvalues.csv', nrows=202592)

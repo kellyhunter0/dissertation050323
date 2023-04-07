@@ -59,7 +59,7 @@ export default function App() {
           <Route path="/Original" Component={OriginalView}/>
           <Route path="/Outliers" Component={OutlierView}/>
           <Route path="/KNN" Component={KNNView}/>
-          <Route path="/NormalDistribution" Component={NormalDistributionView}/>
+          <Route path="/NoisyData" Component={NormalDistributionView}/>
           <Route path="/NormalMissing" Component={NormalDistributionMissingView}/>
         </Routes>
         </div>

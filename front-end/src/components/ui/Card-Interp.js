@@ -22,12 +22,12 @@ return (
 <CardContent>
 <Typography gutterBottom variant="h4" component="div">
     Data Prediction
-  <Typography gutterBottom variant="h6" component="div">
-    Interpolated Data
-  </Typography>
+  <p>
+    Interpolation
+  </p>
   </Typography>
   <Typography variant="body2" color="text.secondary" style={{fontSize:'16px'}}>
-    The original data is over 200,000 lines long. Exploratory data analysis is performed to identify any relationships between data points. 
+    Interpolation is a statistical method that is used to predict values between a start point and an end point. It almost tries to find a line of best fit, but seeks to fill in the gaps along the way. The intention with this method is to see how well it performs with outliers present, and how well it performs without these present. 
   </Typography>
 </CardContent>
 <CardActions>

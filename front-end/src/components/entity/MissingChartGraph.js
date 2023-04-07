@@ -102,11 +102,12 @@ export const MissingDataChart = () => {
         <div className="card-body">
           <div className="col"  style={{ marginLeft:'auto', marginRight:'auto'}}>
           <p>
-          Missing values have been created and removed from the original chart. This is to see how much missing data affects charts. As we will be using prediction methods to fill these in later, we can safely remove missing values and save this to another file for when imputation happens later. <br></br>
+          Missing values have been created and removed from the original chart. This is to see how much missing data affects charts. As we will be using prediction methods to fill these in later, we can safely remove missing values and save this to another file for when imputation happens later. <br></br></p>
           <div className="col" ref={ref} style={{ marginLeft:'auto', marginRight:'auto'}}></div>
 
           <br></br>
           <br></br>
+          <p>
           Based on the changes, do you notice a difference in the chart? It doesn't look like much, but over 80,000 rows were removed because there were missing values. Even though a lot of data has been removed, this does not appear to affect the Scatterplot much visually.
           <br></br>
         </p>

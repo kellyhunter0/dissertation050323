@@ -86,9 +86,9 @@ export function OriginalDataChart(headerRef){
             This chart is <strong>Scatterplot</strong>, which is a common correlation chart function used by Data Scientists to test how much things depend on one another. That is, it tests the strength of the relationship between two variables. In the case of this dataset, we model Liquified Pertroleum Gas (lpg), Carbon Monoxide (co) and Smoke which are all measured in ppm. This stands for parts per million, and this is a measurement for the mass of a chemical or contaminate per unit of volume of water. So, this essentially measures it in the air and records the amount in ppm.
             <br></br>
             <br></br>
-            
+            </p>
           <div className="col" ref={headerRef} style={{ marginLeft:'auto', marginRight:'auto'}}></div>
-
+          <p>
             When two variables are said to have a relationship, this means they are correlated either negatively or positively. In the case of this data, we can see that this is a positive linear relationship as the chart direction points upward and to the right. So what does this mean? Well, it means that as Liquified Pertroleum Gas increases, so do Smoke and Carbon Monoxide. 
           </p>
           </div>

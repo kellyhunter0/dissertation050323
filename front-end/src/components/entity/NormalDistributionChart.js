@@ -111,42 +111,48 @@ export const NormalDistributionChart = () => {
     }, [nd40])
 return (
   <>
-        <div className="row" style={{marginLeft:'auto', marginRight:'auto'}}>
-        <div className="col-lg-6" style={{marginLeft:'auto', marginRight:'auto'}}>
-        <div className="card" style={{backgroundColor:"rgba(95, 95, 95, 0.1)", margin:'0, auto'}}>
+
+<div className="col-lg-8" style={{marginLeft:'auto', marginRight:'auto'}}>
+        <div className="card" style={{backgroundColor:"rgba(95, 95, 95, 0.1)", margin:'auto'}}>
         <div className="card-header">
-          10% of values replaced
+          10% Noise
           </div>
         <div className="card-body">
-          <div className="col" ref={ref3} style={{ marginLeft:'auto', marginRight:'auto'}}>
+          <div className="col" style={{ marginLeft:'auto', marginRight:'auto'}}>
+            <p>The visualisation we seen of the original data was very clean, which really means that the points on the chart do not seem to deviate from the line. To showcase what noise can do to charts, 10% of the data in the <strong>lpg</strong> column is changed into data generated from a Normal Distribution. This basically means that most values will be within a similar range, all gathering at a central point and trailing off at either side of the range. Visually, data plotted on a Scatterplot might appear to look like a <strong>bell curve</strong></p><p>In data that follows a Normal Distribution, the measures of central tendency (mean, mode and median) are exactly the same.</p>  
+          <div className="col" ref={ref3} style={{ marginLeft:'auto', marginRight:'auto'}}></div>
 
     <p>
-      10% of data replaced with Guassian Distribution values <br/> File Location:<code>./front-end/src/AllPredictedLpg.js</code> and save to reload. 
+      The chart shows that when 10% of the data is altered with "noise", the line of best fit (in blue on the chart) is affected slightly. This line of best fit is a good way to express how the relationship changes on the Scatterplot when the lpg variable on the y axis is altered. The line of best fit now starts at roughly 0.005 on the y axis, compared to 0.004 on the original chart. The noise generated ranges roughly between 0.004 and 0.010, which can be seen visualised above. There doesn't appear to be a bell curve on this chart, but what will happen when 40% of the data is changed?
     </p>
     <p></p>
     
+
+    </div>
+  </div>
+  </div>
   </div>
 
-  </div>
-  </div>
-  </div>
-  <div className="col-lg-6" style={{marginLeft:'auto', marginRight:'auto'}}>
-        <div className="card" style={{backgroundColor:"rgba(95, 95, 95, 0.1)", margin:'0, auto'}}>
+  <div className="col-lg-8" style={{marginLeft:'auto', marginRight:'auto'}}>
+        <div className="card" style={{backgroundColor:"rgba(95, 95, 95, 0.1)", margin:'auto'}}>
         <div className="card-header">
-          40% of values replaced
+          40% Noise
           </div>
         <div className="card-body">
-  <div className="col" ref={ref4} style={{ marginLeft:'auto', marginRight:'auto'}}>
-    <p>
-    40% of data replaced with Guassian Distribution values <br/> File Location:<code>./front-end/src/AllPredictedLpg.js</code> and save to reload. 
+  <div className="col"  style={{ marginLeft:'auto', marginRight:'auto'}}>
+    <p>In this chart, 40% of the data in the lpg column is changed into data generated from a Normal Distribution. As stated, Normal Distributions are where values place within a similar range and look like a bell curve when plotted on a Scatterplot. </p>
+  <div className="col" ref={ref4} style={{ marginLeft:'auto', marginRight:'auto'}}> </div>
+    <p>  In the above chart, a bell curve can be identified! The original positive linear relatinship line can still be seen slightly in amongst the data, but it's very different from the original chart we seen at the start. The data seems to be clustering at the start of the chart, which would suggest that this is a Right Skewed Normal Distribution, which means it is positively skewed. This could happen for a number of reasons, the most notable would be because there higher values farther from the peak. This is a type of <strong>Asymmetric Distribution</strong>, which is a fancy way of saying the chart is not visually symmetrical.
     </p>
+    
     <p></p>
     
+    </div> 
   </div>
   </div>
   </div>
-  </div>
-  </div>
+  
+
   </>
 
   

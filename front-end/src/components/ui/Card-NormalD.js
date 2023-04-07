@@ -25,11 +25,12 @@ return (
   </Typography>
   
   <Typography variant="body2" color="text.secondary" style={{fontSize:'16px'}}>
-    As the original variables do not contain much noise, for the purposes of demonstration, noise is applied to the LPG value. This is done by replacing 10% of the values with Normally Distributed data, then 40% of the values. These Scatterplots will be explained and compared.
+  As the original variables do not contain much noise, for the purposes of demonstration, noise is applied to the LPG value. Noise is basically meaningless data, and the purpose is to see how much of this data can affect the chart visuals. This is done by replacing 10% of the values with Normally Distributed data, then 40% of the values are replaced. These Scatterplots will then be explained based on the output. It is expected that the difference in each chart will be noticable.
   </Typography>
+  
 </CardContent>
 <CardActions>
-  <a href='/NormalDistribution'>
+  <a href='/NoisyData'>
   <Button variant="contained" color='grey' size="large" style={{marginLeft:"auto", marginRight:"auto"}}>View</Button>
   </a>
 </CardActions>

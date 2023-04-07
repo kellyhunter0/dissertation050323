@@ -24,7 +24,7 @@ return (
     Outlier Data
   </Typography>
   <Typography variant="body2" color="text.secondary" style={{fontSize:'16px'}}>
-    Exploratory data analysis is performed to identify any outliers in the data. Outliers are points that lie outside the range of normal, so something might be too high or too low depending on the context, and this can alter the chart output and change the line of best fit.
+    Exploratory data analysis is performed to identify any outliers in the data. Outliers are points that lie outside the range of normal, so something might be too high or too low depending on the context, and this can alter the chart output and change the line of best fit. There will be a comparison of charts with and without outliers.
   </Typography>
 </CardContent>
 <CardActions >

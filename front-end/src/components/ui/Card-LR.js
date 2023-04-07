@@ -22,12 +22,12 @@ return (
 <CardContent>
 <Typography gutterBottom variant="h4" component="div">
     Data Prediction
-  <Typography gutterBottom variant="h6" component="div">
+  <p>
     Linear Regression
-  </Typography>
+  </p>
   </Typography>
   <Typography variant="body2" color="text.secondary" style={{fontSize:'16px'}}>
-    The original data is over 200,000 lines long. Exploratory data analysis is performed to identify any relationships between data points. 
+  Linear Regression is a Machine Learning method that is used to predict values based on test and train data. It takes a small sample of your dataset to train with, and generates some predictions for LPG, and this is based on the rest of the data. The intention with this method is to see how well it performs with and without outliers present.
   </Typography>
 </CardContent>
 <CardActions>

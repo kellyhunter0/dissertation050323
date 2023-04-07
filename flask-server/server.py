@@ -10,7 +10,7 @@ import pandas as pd
 from pandas import Series
 import matplotlib as m
 from matplotlib import pyplot as plt
-from fileHandling import csvRead, csvColumnRename, reg_predict
+from fileHandling import csvRead, csvColumnRename, reg_predict, interpolated_values
 from flaskname import * # gets the flask app name function from py file
 #from sklearn.neighbors import LocalOutlierFactor
 from outlierRemoval import removeOutliers
@@ -42,6 +42,7 @@ csvColumnRename() # this works
 # Predict some values 
 reg_predict() # need to work on this one
 
+interpolated_values()
 # Identify and remove any outliers
 removeOutliers() # this works
 missingDF = pd.read_csv("./../front-end/public/datasets/normal-distribution/missing-filled-nd.csv")
@@ -53,13 +54,13 @@ plt.show()
 
     # Use Guassian Distribution to generate y values - 
 # this is to affect the wuality of the visualisation and the linear regression line of best fit
-gaussianDistribution() # this also works
+#gaussianDistribution() # this also works
 predictionScores_normalDistribution()
 
 k_errors = optimize_k(data=dfhalf, target='lpg')
 k_errors2 =  outlierRemovalPredict(data=outliersDF, target='lpg')
-missingDFKNN = pd.read_csv("./../front-end/public/datasets/missing/missing-filled-knn.csv")
-missingDFKNN_outliers = pd.read_csv("./../front-end/public/datasets/missing/missing-filled-knn-noOutliers.csv")
+missingDFKNN = pd.read_csv("./../front-end/public/datasets/knearest/missing-filled-knn.csv")
+missingDFKNN_outliers = pd.read_csv("./../front-end/public/datasets/knearest/missing-filled-knn-noOutliers.csv")
 
 plt.hist(outliersDF['lpg'])
 plt.xlabel('lpg (ppm (%))') 

@@ -22,12 +22,12 @@ return (
 <CardContent>
 <Typography gutterBottom variant="h4" component="div">
     Data Prediction
-  <Typography gutterBottom variant="h6" component="div">
+  <p>
     K-Nearest Neighbour
-  </Typography>
+  </p>
   </Typography>
   <Typography variant="body2" color="text.secondary" style={{fontSize:'16px'}}>
-    The original data is over 200,000 lines long. Exploratory data analysis is performed to identify any relationships between data points. 
+    K-Nearest Neighbour is a way of estimating values by looking for the value it's closest to based off the number of neighbours its nearest to. KNN is used to predict missing values where there are outliers present, and also to predict missing values where the outliers have been removed. 
   </Typography>
 </CardContent>
 <CardActions>

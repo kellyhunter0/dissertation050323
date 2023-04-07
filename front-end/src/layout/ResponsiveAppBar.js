@@ -99,7 +99,7 @@ return (
               <CNavLink href="/Outliers" state={{data:data}} >Outliers</CNavLink>
             </CNavItem>
             <CNavItem>
-              <CNavLink href="/NormalDistribution" state={{data:data}} >Noisy Data</CNavLink>
+              <CNavLink href="/NoisyData" state={{data:data}} >Noisy Data</CNavLink>
             </CNavItem>
             <CDropdown variant="nav-item" popper={false} >
               
@@ -122,9 +122,6 @@ return (
               </CDropdownMenu>
             </CDropdown>
             <CNavItem>
-              <CNavLink href="#">
-                All charts
-              </CNavLink>
             </CNavItem>
           </CNavbarNav>
         </COffcanvasBody>

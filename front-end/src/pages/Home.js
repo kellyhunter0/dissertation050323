@@ -50,7 +50,7 @@ export default function HomeView(props) {
         <div className="col-lg-7 col-md-6 d-flex  flex-column header-mobile" style={{marginTop:"60px", marginRight:"30px"}}>
           
           <h1 className="text-white mb-4 justify-content-left" id="name-text"  value='pageName'>Welcome</h1>
-          <p className="text-white opacity-8 lead align-items-left header-p">This is a free online tool that aims to help improve data literacy and give an introduction to Data Analysis and Data Science. By talking through the different charts and explaining how to read the <em>x</em> and <em>y</em> axis, you will gain an understanding on how to interpret data. The original Dataset is an IOT Envoironmental Sensor Telemetry dataset that contains over 400,000 rows and 9 columns.   </p>
+          <p className="text-white opacity-8 lead align-items-left header-p">This is an online tool that aims to help improve data literacy by highlighting that data sets are not always perfect; more often than not, they are present with dirty data. This includes things like outliers, wrong readings in the form of noise, and missing data. This website will teach ways of filling in missing data using approximation, show how to handle outliers and showcase data that has added noise.  The original Dataset is an IOT Environmental Sensor Telemetry dataset that contains over <b>400,000</b> rows and <b>9 columns</b>. By talking through the different charts and explaining how to read the <em>x</em> and <em>y</em> axis, you will gain an understanding on how to interpret data. </p>
           <div className="buttons">
           <div className="btn-group btn-group" data-toggle="buttons">
         <label className="btn btn-white text-white">
