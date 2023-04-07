@@ -90,6 +90,9 @@ export default function HomeView(props) {
         <Item><CardNormalD/></Item>
       </Grid>
       <Grid xs="auto">
+        <Item><CardNormalDMissing/></Item>
+      </Grid>
+      <Grid xs="auto">
         <Item><CardKNN/></Item>
       </Grid>
       <Grid xs="auto">
@@ -103,7 +106,9 @@ export default function HomeView(props) {
       </Grid>
     </Grid>
         
- 
+ <br></br>
+ <br></br>
+ <br></br>
         {/* <OriginalDataChart></OriginalDataChart> */}
 
         </div>    </div>

@@ -637,9 +637,18 @@ text {
     max-width: 1140px;
   }
   .card-card {
-    max-width: 1000px!important
+    max-width: 520px!important
   }
 
+
+}
+
+@media (min-width: 1300px) {
+
+
+  .card-card {
+    max-width: 500px!important
+  }
 }
 
 @media (min-width: 1340px) {

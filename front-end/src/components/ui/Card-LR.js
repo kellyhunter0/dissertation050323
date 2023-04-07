@@ -1,5 +1,5 @@
 import React from 'react'; 
-import linearr from '../../assets/img/static/linearreg.PNG'
+import linearr from '../../assets/img/static/linearreg.PNG';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
