@@ -3,12 +3,7 @@
 # save these in an array
 # send to react front end to see if the points exist as outliers, and if they do try to highlight them
 # then show the removal of these and compare the two visualisations side by side
-
-from flask import Flask
-import numpy as np
 import pandas as pd
-from pandas import Series
-import matplotlib as m
 from matplotlib import pyplot as plt
 from fileHandling import csvRead, csvColumnRename, reg_predict, interpolated_values
 from flaskname import * # gets the flask app name function from py file

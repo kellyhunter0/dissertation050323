@@ -1,11 +1,9 @@
-from flask import Flask
 import numpy as np
 import csv
 import pandas as pd
 from pandas import Series
 import matplotlib as m
 from matplotlib import pyplot as plt
-import datetime 
 from flaskname import * # gets the flask app name function from py file
 import random
 from sklearn.linear_model import LinearRegression
@@ -21,13 +19,44 @@ lr = LinearRegression()
 # identify the columns in the csv
 columns = ["ts","device","co","humidity","light","lpg","motion","smoke","temp"]
  #carbon-monoxide,humidity,lpg,smoke,temperature
-completeColumns = ['date','carbon-monoxide', 'humidity', 'lpg', 'smoke', 'temperature']
+completeColumns = ['carbon-monoxide', 'humidity', 'lpg', 'smoke', 'temperature']
 interpCols = ['carbon-monoxide', 'humidity', 'lpg', 'smoke', 'temperature']
 # use the columns with the specified file name
 dataframe = pd.read_csv(FILE_NAME, usecols=columns)
 complete = pd.read_csv(FILE_COMPLETE, usecols=completeColumns)
-dataframe = dataframe.drop(['device','light','motion'], axis=1)
+dataframe = dataframe.drop(['device','light','motion', 'ts'], axis=1)
 nan_values = dataframe[dataframe['lpg'].isna()]
+
+plt.hist(dataframe['lpg'])
+plt.xlabel('lpg (ppm (%))') 
+plt.ylabel('count') 
+plt.title("Histogram - Liquified Petrolium Gas (original data)")
+plt.show()
+
+plt.hist(dataframe['co'])
+plt.xlabel('carbon monoxide (ppm (%))') 
+plt.ylabel('count') 
+plt.title("Histogram - Carbon Monoxide (original data)")
+plt.show()
+
+plt.hist(dataframe['smoke'])
+plt.xlabel('smoke (ppm (%))') 
+plt.ylabel('count') 
+plt.title("Histogram - Smoke (original data)")
+plt.show()
+
+plt.hist(dataframe['temp'])
+plt.xlabel('temperature (Fahrenheit (°F))') 
+plt.ylabel('count') 
+plt.title("Histogram - Temperature (original data)")
+plt.show()
+
+plt.hist(dataframe['humidity'])
+plt.xlabel('humidity (Percentage (%))') 
+plt.ylabel('count') 
+plt.title("Histogram - Humidity (original data)")
+plt.show()
+
 ### FUNCTIONS 
 #       These focus priamrily on csv manipulation 
 #
@@ -43,20 +72,28 @@ def csvColumnRename():
     print("\n___________Original Dataset______________")
     print(len(dataframe))
     print(dataframe)
+    print(dataframe.info())
+    print(dataframe.describe())
+    x1 = dataframe['co'].values.reshape(-1,1)
+    y1 = dataframe['lpg'].values.reshape(-1,1)
+    CallLinearReg(x1,y1) # this calls the function to get the intercept and coefficient after the data has been altered
     # Reduce dataset by half to improve performance when loading visualisations onto the front end - talk about this in the implementation section and document the problems encountered, then use this and user studies to evaluate your work.
     dataframe.drop(dataframe.tail(202592).index, inplace=True)
     # rename some to make it more readable
     dataframe.rename(columns={"co" : "carbon-monoxide"}, inplace=True)
     dataframe.rename(columns={"temp" : "temperature"}, inplace=True)
-    dataframe.rename(columns={"ts" : "date"}, inplace=True)
-    #convert timestamp to date - this doesn't convert in the json call below, but this can be tackled on the front end 
-    dataframe['date'] = pd.to_datetime(dataframe['date'], unit="s")
+    #dataframe.rename(columns={"ts" : "date"}, inplace=True)
+    #convert timestamp to date 
+    #dataframe['date'] = pd.to_datetime(dataframe['date'], unit="s")
     print("\n_________________________________________")
     print("\n__________Csv Column Rename______________")
     print(dataframe)
     dataframe.to_csv("./../front-end/public/datasets/original/half-removed.csv", index=False)
     print(dataframe.info())
     print(dataframe.describe())
+    x = dataframe['carbon-monoxide'].values.reshape(-1,1)
+    y = dataframe['lpg'].values.reshape(-1,1)
+    CallLinearReg(x,y) # this calls the function to get the intercept and coefficient after the data has been altered
     # plt.hist(dataframe['lpg'])
     # plt.xlabel('lpg (ppm (%))') 
     # plt.ylabel('count') 
@@ -78,6 +115,7 @@ def csvColumnRename():
     
    
     missingData()
+    
     return dataframe
     #csvToJson()
     
@@ -110,10 +148,17 @@ def missingData():
     print("Assigned missing values and reduced the dataset by half. The date has also been converted for redability and for the purposes of aggregating the data later on. \n", dataframe)
     dataframe.to_csv("./../front-end/public/datasets/missing/missingvalues.csv")
     print("Missing Values:\n", dataframe)
+    print(dataframe.info())
+    print(dataframe.describe())
     dfresult = dataframe.dropna()
     print("\n_________________________________________")
     print("\n_________Removed Missing Values__________")
     print("Missing Values Removed:\n", dfresult)
+    print(dfresult.info())
+    print(dfresult.describe())
+    u = dfresult['lpg'].values.reshape(-1,1)
+    i = dfresult['carbon-monoxide'].values.reshape(-1,1)
+    CallLinearReg(u,i)
     # plt.hist(dfresult['lpg'])
     # plt.xlabel('lpg (ppm (%))') 
     # plt.ylabel('count') 
@@ -162,7 +207,7 @@ def interpolated_values():
     
     a = pd.Series(missing['lpg'])
     a.interpolate( method='quadratic', inplace=True, limit_direction="both", limit_area='inside') 
-    a.interpolate( method='linear', inplace=True, limit_direction="both") 
+    a.interpolate( method='linear', inplace=True, limit_direction="both") #  this is to account for a null value at the beginning
     
     missing['lpg'] = a.values
     missing['lpg'].fillna(method='bfill', inplace=True)
@@ -185,26 +230,31 @@ def interpolated_values():
     print("missing filled\n",missingOutliersRemoved['lpg'])
     missingOutliersRemoved.to_csv('./../front-end/public/datasets/interpolation/missing-filled-interpolate-nooutliers.csv')
     
-    print("Predicted values (outliers removed) (interpolate, method='cubic'): \n", missing)
+    print("Predicted values (outliers removed) (interpolate, method='quadratic'): \n", missing)
 
-    x = missing['carbon-monoxide'].values.reshape(-1,1)
-    y = missing['lpg'].values.reshape(-1,1)
+
     # This wont parse datetime values, so i need to find a way that only targets the numerical data in the whole dataset, otherwise this will throw some really funky errors 
     # this is kind of fixed - all i had to do is drop the date value, and now i need to convert categorical values into numerical codes 
     # finish predicting the values 
     print("\n_____________________________________________")
     print("\n___LinReg Calculations: Interpolated Values (pre-outlier removal)__")
+    x = missing['carbon-monoxide'].values.reshape(-1,1)
+    y = missing['lpg'].values.reshape(-1,1)
     CallLinearReg(x,y) # this calls the function to get the intercept and coefficient after the data has been altered
     mean_square_error(temp2.iloc[index_nan], missing['lpg'].iloc[index_nan]) # actual vs predicted
+    print(missing.info())
+    print(missing.describe())
     
-    x4 = missingOutliersRemoved['carbon-monoxide'].values.reshape(-1,1)
-    y4 = missingOutliersRemoved['lpg'].values.reshape(-1,1)
-
     print("\n_____________________________________________")
     print("\n___LinReg Calculations: Interpolated Values (post-outlier removal)__")
+    x4 = missingOutliersRemoved['carbon-monoxide'].values.reshape(-1,1)
+    y4 = missingOutliersRemoved['lpg'].values.reshape(-1,1)
     CallLinearReg(x4,y4) # this calls the function to get the intercept and coefficient after the data has been altered
     mean_square_error(temp22.iloc[index_nan2], missingOutliersRemoved['lpg'].iloc[index_nan2]) # actual vs predicted
+    print(missingOutliersRemoved.info())
+    print(missingOutliersRemoved.describe())
     # nd_charts()
+    
     
     
 def plot(x,y):
@@ -230,10 +280,10 @@ def lr_values():
     print("\n_________Linear Regression Predictions____________")
     dataf = pd.read_csv('./../front-end/public/datasets/original/half-removed.csv', nrows=202592)  
     outliersFull = pd.read_csv('./../front-end/public/datasets/outliers/outlierremoval.csv')  
-    date = dataf.drop("date", axis=1) # drop date as it will flag an error, lr only accepts float values
-    x = date.drop("lpg", axis=1) # drop this as this is the thing we will use to predict lpg
+    #date = dataf.drop("date", axis=1) # drop date as it will flag an error, lr only accepts float values
+    x = dataf.drop("lpg", axis=1) # drop this as this is the thing we will use to predict lpg
     x = x.values # assign the values of all the data except lpg
-    y = date['lpg'].values # grab the thing we want to predict and its assigned values
+    y = dataf['lpg'].values # grab the thing we want to predict and its assigned values
     X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.4, random_state=42) # train the model
     lr.fit(x, y) # fit the model
     y_pred = lr.predict(X_test) # predict the model
@@ -265,6 +315,8 @@ def lr_values():
     predictAllLpg = pd.DataFrame({'lpg':missingvalues['lpg'], 'carbon-monoxide':dataf['carbon-monoxide'], 'smoke':dataf['smoke'], 'humidity':dataf['humidity'], 'temperature':dataf['temperature'] })
     predictAllLpg.to_csv('./../front-end/public/datasets/linear-regression/all-predicted-lr-outliers.csv', index=False)
     print(df3)
+    print(predictAllLpg.info())
+    print(predictAllLpg.describe())
     
         # fill in missing values - outliers removed
     outliers = pd.read_csv('./../front-end/public/datasets/missing/outliersRemoval-missing.csv', nrows=202592)
@@ -282,6 +334,9 @@ def lr_values():
     mean_square_error(temp2.iloc[index_nan], outliers['lpg'].iloc[index_nan]) # actual vs predicted
     #mean_square_error(dataf['lpg'], missingvalues[['lpg']])
     predictAllLpg = pd.DataFrame({'lpg':outliers['lpg'], 'carbon-monoxide':dataf['carbon-monoxide'], 'smoke':dataf['smoke'], 'humidity':dataf['humidity'], 'temperature':dataf['temperature'] })
+    print(predictAllLpg)
+    print(predictAllLpg.info())
+    print(predictAllLpg.describe())
     predictAllLpg.to_csv('./../front-end/public/datasets/linear-regression/all-predicted-lr-outliers-removed.csv', index=False)
     print(df2)
     
@@ -328,8 +383,8 @@ def CallLinearReg(x, y):
     # x = complete['carbon-monoxide'].values.reshape(-1,1)
     # y = complete['lpg'].values.reshape(-1,1)
     lr.fit(x, y)
-    print("Linear Regression intercept: \n", lr.intercept_ )
-    print("Linear Regression coef: \n", lr.coef_ )
+    print("Intercept: \n", lr.intercept_ )
+    print("Coefficient: \n", lr.coef_ )
     
 
 ## Create API Routes for Data so we can send this to the front-end

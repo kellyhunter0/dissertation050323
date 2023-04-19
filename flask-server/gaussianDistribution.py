@@ -3,8 +3,12 @@ import numpy as np
 import pandas as pd
 import csv
 import re
-from sklearn.metrics import mean_squared_error
 from sklearn import metrics
+from sklearn.linear_model import LinearRegression
+from sklearn import metrics
+
+
+lr = LinearRegression()
 
 # 12/03/23 need to add the rest of the columns from the original dataset with this, i also need to remove 20259 lpg rows from the original dataset and add the noise in to see what happens
 # I also need to adjust the mean in the guassian distribution function to the true value, this works for now but it needs changed
@@ -100,7 +104,10 @@ def predictionScores_normalDistribution():
     df2 = pd.DataFrame({'Actual':dfdf['lpg'].iloc[index_nan2], 'Predicted': D['lpg'].iloc[index_nan2]})
     print(df2)
     mean_square_error(temp22.iloc[index_nan2], D['lpg'].iloc[index_nan2]) # actual vs predicted
-    
+    x1 = D['carbon-monoxide'].values.reshape(-1,1)
+    y1 = D['lpg'].values.reshape(-1,1)
+    CallLinearReg(x1, y1) # this calls the function to get the intercept and coefficient AFTER the data has been altered
+
     print("________________________________________________________________")
     print("___________GD Prediction Scores - Pre-Outlier Removal___________")
     print("________________________________________________________________")
@@ -115,6 +122,9 @@ def predictionScores_normalDistribution():
     df3 = pd.DataFrame({'Actual':fulldf['lpg'].iloc[index_nan], 'Predicted': m['lpg'].iloc[index_nan]})
     print(df3)
     mean_square_error(temp2.iloc[index_nan], m['lpg'].iloc[index_nan]) # actual vs predicted
+    x11 = m['carbon-monoxide'].values.reshape(-1,1)
+    y11 = m['lpg'].values.reshape(-1,1)
+    CallLinearReg(x11, y11) # this calls the function to get the intercept and coefficient AFTER the data has been altered
     
 #### GUASSIAN DISTRIBUTION #####    
 # 08/03/23 - 09/03/23
@@ -130,6 +140,12 @@ def predictionScores_normalDistribution():
 #       - Doing it this way means i can integrate it easier with my current dataset
 #  12/03/23 update
 #   CSV now works and I have integrated guassian distribution lpg values with the first 20259 rows of the dataset
+def CallLinearReg(x, y):
+    # x = complete['carbon-monoxide'].values.reshape(-1,1)
+    # y = complete['lpg'].values.reshape(-1,1)
+    lr.fit(x, y)
+    print("Intercept: \n", lr.intercept_ )
+    print("Coefficient: \n", lr.coef_ )
 def gaussianDistribution():
     lpgSD = lpg.std()
     lpgMean = lpg.mean()

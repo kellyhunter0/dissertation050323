@@ -1,5 +1,5 @@
 import React from 'react'; 
-import normald from '../../assets/img/static/normald.PNG'
+import normald from '../../assets/img/static/normaldmissing.PNG'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -20,17 +20,19 @@ return (
   className='card-img img-fluid'
 />
 <CardContent>
-  <Typography gutterBottom variant="h4" component="div">
-    Noisy Data
+<Typography gutterBottom variant="h4" component="div">
+    Data Prediction
+
+    <p>
+    Normal Distribution</p>
   </Typography>
-  
+
   <Typography variant="body2" color="text.secondary" style={{fontSize:'16px'}}>
-  As the original variables do not contain much noise, for the purposes of demonstration, noise is applied to the LPG value. Noise is basically meaningless data, and the purpose is to see how much of this data can affect the chart visuals. This is done by replacing 10% of the values with Normally Distributed data, then 40% of the values are replaced. These Scatterplots will then be explained based on the output. It is expected that the difference in each chart will be noticable.
+Normal Distributions are a type probability distribution, this one in particular generates data based on the frequency of data nearest the mean. This method will be used to predict missing values where there are outliers present, and also to predict missing values where the outliers have been removed 
   </Typography>
-  
 </CardContent>
 <CardActions>
-  <a href='/NoisyData'>
+  <a href='/NormalDistribution'>
   <Button variant="contained" color='grey' size="large" style={{marginLeft:"auto", marginRight:"auto"}}>View</Button>
   </a>
 </CardActions>

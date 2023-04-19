@@ -7,8 +7,8 @@ import { CardOutliers } from '../components/ui/Card-Outliers';
 import { CardKNN } from '../components/ui/Card-KNN';
 import { CardLinearR } from '../components/ui/Card-LR';
 import { CardMissing } from '../components/ui/Card-Missing';
+import { CardNoise } from '../components/ui/Card-Noise'
 import { CardNormalD } from '../components/ui/Card-NormalD'
-import { CardNormalDMissing } from '../components/ui/Card-NormalDMissing'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -87,16 +87,13 @@ export default function HomeView(props) {
         <Item><CardOutliers/></Item>
       </Grid>
       <Grid xs="auto">
+        <Item><CardNoise/></Item>
+      </Grid>
+      <Grid xs="auto">
         <Item><CardNormalD/></Item>
       </Grid>
       <Grid xs="auto">
-        <Item><CardNormalDMissing/></Item>
-      </Grid>
-      <Grid xs="auto">
         <Item><CardKNN/></Item>
-      </Grid>
-      <Grid xs="auto">
-        <Item><CardNormalDMissing/></Item>
       </Grid>
       <Grid xs="auto">
         <Item><CardInterp/></Item>

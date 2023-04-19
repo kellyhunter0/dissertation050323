@@ -5,10 +5,8 @@ import pandas as pd
 from pandas import Series
 import matplotlib as m
 from matplotlib import pyplot as plt
-import datetime 
 from flaskname import * # gets the flask app name function from py file
 import random
-from sklearn.linear_model import LinearRegression
 
 # Specify the file name
 FILE_COMPLETE = "./../front-end/public/datasets/original/half-removed.csv"

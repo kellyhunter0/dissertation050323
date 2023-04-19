@@ -1,7 +1,6 @@
 import '../assets/css/App.css';
 
-import {ResponsiveAppBar} from "../layout/ResponsiveAppBar";
-import {Header} from "../layout/Header";
+import {ResponsiveAppBar} from "../layout/AppBar";
 import {Footer} from "../layout/Footer";
 import React, {useState} from 'react'; 
 import {BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -12,8 +11,8 @@ import OriginalView from './Original';
 import OutlierView from './Outliers';
 import HomeView from './Home';
 import KNNView from './KNN';
-import NormalDistributionView from './NormalDistribution';
-import NormalDistributionMissingView from './NormalDistributionMissing';
+import NormalDistributionMissingView from './NormalDistribution';
+import NoiseView from './Noise';
 
 
 
@@ -59,7 +58,7 @@ export default function App() {
           <Route path="/Original" Component={OriginalView}/>
           <Route path="/Outliers" Component={OutlierView}/>
           <Route path="/KNN" Component={KNNView}/>
-          <Route path="/NoisyData" Component={NormalDistributionView}/>
+          <Route path="/NoisyData" Component={NoiseView}/>
           <Route path="/NormalMissing" Component={NormalDistributionMissingView}/>
         </Routes>
         </div>

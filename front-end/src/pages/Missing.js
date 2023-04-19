@@ -2,7 +2,6 @@ import '../assets/css/App.css';
 import {OriginalDataChart} from "../components/entity/OriginalChartGraph";
 import {MissingDataChart} from "../components/entity/MissingChartGraph";
 import React from 'react'; 
-import { Header } from '../layout/Header';
 import { useLocation } from 'react-router';
 import {Footer} from '../layout/Footer'
 
